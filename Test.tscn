@@ -1,0 +1,111 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5klnvi0hrq1h"]
+
+[ext_resource type="Shader" path="res://CeilingTile.gdshader" id="1_e5gsg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7wmsa"]
+shader = ExtResource("1_e5gsg")
+shader_parameter/isInRadians = false
+shader_parameter/xRadians = 0.0
+shader_parameter/yRadians = 0.0
+shader_parameter/zRadians = null
+shader_parameter/xDegrees = 75.512
+shader_parameter/yDegrees = null
+shader_parameter/zDegrees = 10.537
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yfmma"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wvxfi"]
+
+[node name="Test" type="Node2D"]
+
+[node name="Ceiling" type="Area2D" parent="."]
+material = SubResource("ShaderMaterial_7wmsa")
+use_parent_material = true
+
+[node name="ColorRect" type="ColorRect" parent="Ceiling"]
+material = SubResource("ShaderMaterial_yfmma")
+use_parent_material = true
+offset_right = 40.0
+offset_bottom = 56.0
+
+[node name="ColorRect2" type="ColorRect" parent="Ceiling"]
+material = SubResource("ShaderMaterial_wvxfi")
+use_parent_material = true
+offset_left = 48.0
+offset_right = 88.0
+offset_bottom = 56.0
+
+[node name="ColorRect3" type="ColorRect" parent="Ceiling"]
+material = SubResource("ShaderMaterial_yfmma")
+use_parent_material = true
+offset_left = 96.0
+offset_right = 136.0
+offset_bottom = 56.0
+
+[node name="ColorRect4" type="ColorRect" parent="Ceiling"]
+material = SubResource("ShaderMaterial_yfmma")
+use_parent_material = true
+offset_left = 144.0
+offset_right = 184.0
+offset_bottom = 56.0
+
+[node name="ColorRect5" type="ColorRect" parent="Ceiling"]
+material = SubResource("ShaderMaterial_wvxfi")
+use_parent_material = true
+offset_left = 192.0
+offset_right = 232.0
+offset_bottom = 56.0
+
+[node name="ColorRect6" type="ColorRect" parent="Ceiling"]
+material = SubResource("ShaderMaterial_yfmma")
+use_parent_material = true
+offset_left = 240.0
+offset_right = 280.0
+offset_bottom = 56.0
+
+[node name="ColorRect7" type="ColorRect" parent="Ceiling"]
+material = SubResource("ShaderMaterial_yfmma")
+use_parent_material = true
+offset_top = 64.0
+offset_right = 40.0
+offset_bottom = 124.0
+
+[node name="ColorRect8" type="ColorRect" parent="Ceiling"]
+material = SubResource("ShaderMaterial_wvxfi")
+use_parent_material = true
+offset_left = 48.0
+offset_top = 64.0
+offset_right = 88.0
+offset_bottom = 124.0
+
+[node name="ColorRect9" type="ColorRect" parent="Ceiling"]
+material = SubResource("ShaderMaterial_yfmma")
+use_parent_material = true
+offset_left = 96.0
+offset_top = 64.0
+offset_right = 136.0
+offset_bottom = 124.0
+
+[node name="ColorRect10" type="ColorRect" parent="Ceiling"]
+material = SubResource("ShaderMaterial_yfmma")
+use_parent_material = true
+offset_left = 144.0
+offset_top = 64.0
+offset_right = 184.0
+offset_bottom = 124.0
+
+[node name="ColorRect11" type="ColorRect" parent="Ceiling"]
+material = SubResource("ShaderMaterial_wvxfi")
+use_parent_material = true
+offset_left = 192.0
+offset_top = 64.0
+offset_right = 232.0
+offset_bottom = 124.0
+
+[node name="ColorRect12" type="ColorRect" parent="Ceiling"]
+material = SubResource("ShaderMaterial_yfmma")
+use_parent_material = true
+offset_left = 240.0
+offset_top = 64.0
+offset_right = 280.0
+offset_bottom = 124.0

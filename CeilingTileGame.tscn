@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dksyagnnu26fe"]
+
+[ext_resource type="Script" path="res://CeilingTileGame.cs" id="1_nc1fi"]
+[ext_resource type="Script" path="res://ceiling/Ceiling.cs" id="2_e2q4k"]
+
+[node name="Main" type="Sprite2D"]
+texture_filter = 1
+centered = false
+script = ExtResource("1_nc1fi")
+
+[node name="Ceiling" type="Area2D" parent="."]
+scale = Vector2(1.64, 1.64)
+script = ExtResource("2_e2q4k")
+metadata/ceilingWidth = 5
+metadata/ceilingHeight = 5
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
