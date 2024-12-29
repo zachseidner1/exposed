@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 
-public partial class Ceiling : Area2D
+public partial class Ceiling : Node2D
 {
 	private readonly List<CeilingTile> _tiles = new();
 
@@ -20,7 +20,7 @@ public partial class Ceiling : Area2D
 	{
 		timer = GetNode<Timer>("../Timer");
 		timer.Timeout += () => HangRandomTile();
-		PopulateCeiling();
+
 		timer.Start();
 	}
 
@@ -36,29 +36,8 @@ public partial class Ceiling : Area2D
 			tileToHang = rnd.Next(numTiles);
 		}
 		timer.Start();
+		var tests = GetTree().GetNodesInGroup("");
 	}
-
-	public void PopulateCeiling()
-	{
-		for (int i = 0; i < 5; i++)
-		{
-			for (int j = 0; j < 5; j++)
-			{
-				CeilingTile tile = new()
-				{
-					Name = "tile " + i + j,
-					Position = new Vector2(43 * i * 2 + 20 * j, 21 * 2 * j),
-					Color = new Color(1, 1, 1),
-					Size = new Vector2(80 - 4 * j, 160 - 4 * j),
-				};
-				_tiles.Add(tile);
-				AddChild(tile);
-			}
-		}
-	}
-
-
-
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)

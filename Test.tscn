@@ -1,111 +1,35 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5klnvi0hrq1h"]
+[gd_scene load_steps=4 format=3 uid="uid://b5klnvi0hrq1h"]
 
 [ext_resource type="Shader" path="res://CeilingTile.gdshader" id="1_e5gsg"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7wmsa"]
-shader = ExtResource("1_e5gsg")
-shader_parameter/isInRadians = false
-shader_parameter/xRadians = 0.0
-shader_parameter/yRadians = 0.0
-shader_parameter/zRadians = null
-shader_parameter/xDegrees = 75.512
-shader_parameter/yDegrees = null
-shader_parameter/zDegrees = 10.537
+[ext_resource type="Texture2D" uid="uid://b3ajdieuh6jrw" path="res://reference.webp" id="2_r2xlb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yfmma"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wvxfi"]
+shader = ExtResource("1_e5gsg")
+shader_parameter/isInRadians = false
+shader_parameter/xRadians = null
+shader_parameter/yRadians = null
+shader_parameter/zRadians = null
+shader_parameter/xDegrees = 74.162
+shader_parameter/yDegrees = 356.27
+shader_parameter/zDegrees = null
 
 [node name="Test" type="Node2D"]
 
-[node name="Ceiling" type="Area2D" parent="."]
-material = SubResource("ShaderMaterial_7wmsa")
-use_parent_material = true
-
-[node name="ColorRect" type="ColorRect" parent="Ceiling"]
+[node name="ColorRect" type="ColorRect" parent="."]
+visibility_layer = 3
+z_index = 1
 material = SubResource("ShaderMaterial_yfmma")
-use_parent_material = true
-offset_right = 40.0
-offset_bottom = 56.0
+offset_left = 136.0
+offset_top = 24.0
+offset_right = 186.0
+offset_bottom = 74.0
+rotation = 6.28319
 
-[node name="ColorRect2" type="ColorRect" parent="Ceiling"]
-material = SubResource("ShaderMaterial_wvxfi")
-use_parent_material = true
-offset_left = 48.0
-offset_right = 88.0
-offset_bottom = 56.0
+[node name="Background" type="Sprite2D" parent="."]
+visibility_layer = 0
+scale = Vector2(1.06, 1.06)
+texture = ExtResource("2_r2xlb")
+centered = false
 
-[node name="ColorRect3" type="ColorRect" parent="Ceiling"]
-material = SubResource("ShaderMaterial_yfmma")
-use_parent_material = true
-offset_left = 96.0
-offset_right = 136.0
-offset_bottom = 56.0
-
-[node name="ColorRect4" type="ColorRect" parent="Ceiling"]
-material = SubResource("ShaderMaterial_yfmma")
-use_parent_material = true
-offset_left = 144.0
-offset_right = 184.0
-offset_bottom = 56.0
-
-[node name="ColorRect5" type="ColorRect" parent="Ceiling"]
-material = SubResource("ShaderMaterial_wvxfi")
-use_parent_material = true
-offset_left = 192.0
-offset_right = 232.0
-offset_bottom = 56.0
-
-[node name="ColorRect6" type="ColorRect" parent="Ceiling"]
-material = SubResource("ShaderMaterial_yfmma")
-use_parent_material = true
-offset_left = 240.0
-offset_right = 280.0
-offset_bottom = 56.0
-
-[node name="ColorRect7" type="ColorRect" parent="Ceiling"]
-material = SubResource("ShaderMaterial_yfmma")
-use_parent_material = true
-offset_top = 64.0
-offset_right = 40.0
-offset_bottom = 124.0
-
-[node name="ColorRect8" type="ColorRect" parent="Ceiling"]
-material = SubResource("ShaderMaterial_wvxfi")
-use_parent_material = true
-offset_left = 48.0
-offset_top = 64.0
-offset_right = 88.0
-offset_bottom = 124.0
-
-[node name="ColorRect9" type="ColorRect" parent="Ceiling"]
-material = SubResource("ShaderMaterial_yfmma")
-use_parent_material = true
-offset_left = 96.0
-offset_top = 64.0
-offset_right = 136.0
-offset_bottom = 124.0
-
-[node name="ColorRect10" type="ColorRect" parent="Ceiling"]
-material = SubResource("ShaderMaterial_yfmma")
-use_parent_material = true
-offset_left = 144.0
-offset_top = 64.0
-offset_right = 184.0
-offset_bottom = 124.0
-
-[node name="ColorRect11" type="ColorRect" parent="Ceiling"]
-material = SubResource("ShaderMaterial_wvxfi")
-use_parent_material = true
-offset_left = 192.0
-offset_top = 64.0
-offset_right = 232.0
-offset_bottom = 124.0
-
-[node name="ColorRect12" type="ColorRect" parent="Ceiling"]
-material = SubResource("ShaderMaterial_yfmma")
-use_parent_material = true
-offset_left = 240.0
-offset_top = 64.0
-offset_right = 280.0
-offset_bottom = 124.0
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(0, 0)
