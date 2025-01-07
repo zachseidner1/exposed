@@ -1,9 +1,12 @@
 using Godot;
 using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 
 public partial class CeilingTile : Polygon2D
 {
+
 	public enum TileState
 	{
 		Hanging,
@@ -15,38 +18,56 @@ public partial class CeilingTile : Polygon2D
 	private Vector3 _hangingRotation = new(284.438f, 288f, 5.058f);
 	private float _currentRotation;
 	public TileState TileStatus { get; private set; } = TileState.Stable;
-	private string _shaderPath = "res://CeilingTile.gdshader";
 	private Tween _tween;
 
 	private Timer _fallTimer;
+
+	/// <summary>
+	/// Not guaranteed to be a vertice, a vector that contains the minimum x and 
+	/// maximum y of the vertices of the polygon
+	/// </summary>
+	private Vector2 _bottomLeftPosition;
+	/// <summary>
+	/// Not guaranteed to be a vertice, a vector that contains the maximum x and 
+	/// minimum y of the vertices of the polygon
+	/// </summary>
+	private Vector2 _topRightPosition;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		// Shader prep
-		var shader = GD.Load<Shader>(_shaderPath);
-		Material = new ShaderMaterial
-		{
-			Shader = shader
-		};
-		SetShaderRotation(0);
 		// Initialize timer
 		_fallTimer = new();
 		AddChild(_fallTimer);
 		_fallTimer.Timeout += () => FallTile();
+		var polygonXs = Polygon.Select((vert) => vert.X + Position.X);
+		var polygonYs = Polygon.Select((vert) => vert.Y + Position.Y);
 
-		Timer time = new();
-		AddChild(time);
-		time.Timeout += () => HangTile();
-		time.Start(2);
+		_bottomLeftPosition = new(polygonXs.Min(), polygonYs.Max());
+		_topRightPosition = new(polygonXs.Max(), polygonYs.Min());
 	}
 
 	public override void _Input(InputEvent @event)
 	{
 		base._Input(@event);
 		// TODO check that mouse is within polygon bounds
+
 		if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed)
 		{
-			PickupTile();
+			float eventX = mouseEvent.Position.X;
+			float eventY = mouseEvent.Position.Y;
+			if (
+				_bottomLeftPosition.X <= eventX && eventX <= _topRightPosition.X &&
+				_topRightPosition.Y <= eventY && eventY <= _bottomLeftPosition.Y
+			)
+			{
+				PickupTile();
+			}
+			else if (TileStatus == TileState.Hanging)
+			{
+				GD.Print("x range: " + _bottomLeftPosition.X + ", " + _topRightPosition.X);
+				GD.Print("y range: " + _topRightPosition.Y + ", " + _bottomLeftPosition.Y);
+				GD.Print("mouse coords: " + mouseEvent.Position);
+			}
 		};
 	}
 

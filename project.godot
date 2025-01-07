@@ -11,15 +11,21 @@ config_version=5
 [application]
 
 config/name="ceiling tile game"
-run/main_scene="res://CeilingTileGame.tscn"
+run/main_scene="res://scenes/CeilingTileGame.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 boot_splash/show_image=false
 
 [display]
 
+window/size/viewport_width=600
+window/size/viewport_height=600
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
 [dotnet]
 
 project/assembly_name="Pong"
+
+[rendering]
+
+viewport/transparent_background=true
