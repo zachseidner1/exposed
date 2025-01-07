@@ -154,11 +154,6 @@ public partial class CeilingTile : Polygon2D
 	{
 		Rotation = rotation;
 		_currentRotation = rotation;
-		// ShaderMaterial shader = (ShaderMaterial)Material;
-		// shader.SetShaderParameter("xDegrees", rotation.X);
-		// shader.SetShaderParameter("yDegrees", rotation.Y);
-		// shader.SetShaderParameter("zDegrees", rotation.Z);
-		// _currentRotation = rotation;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
