@@ -94,7 +94,7 @@ public partial class CeilingTile : Polygon2D
 		_tween?.Kill();
 		_tween = GetTree().CreateTween();
 		_tween.TweenMethod(
-				Callable.From((float rotation) => SetShaderRotation(rotation)),
+				Callable.From((float rotation) => Rotation = rotation),
 				0f, 1.22173f, 1.0f)
 				 .SetTrans(Tween.TransitionType.Elastic)
 				 .SetEase(Tween.EaseType.Out);
@@ -119,7 +119,7 @@ public partial class CeilingTile : Polygon2D
 		_tween?.Kill();
 		_tween = GetTree().CreateTween();
 		_tween.TweenMethod(
-				Callable.From((float rotation) => SetShaderRotation(rotation)),
+				Callable.From((float rotation) => Rotation = rotation),
 				 1.22173f, 0f, 0.5f)
 				 .SetTrans(Tween.TransitionType.Quart)
 				 .SetEase(Tween.EaseType.Out);
@@ -143,17 +143,6 @@ public partial class CeilingTile : Polygon2D
 		}), Position, fallenPosition, 1.0)
 		.SetTrans(Tween.TransitionType.Sine)
 		.SetEase(Tween.EaseType.In);
-	}
-
-	/// <summary>
-	/// Updates the shader parameters based on the rotation vector, and sets the 
-	/// current rotation to said vector
-	/// </summary>
-	/// <param name="rotation">The rotation of the object</param>
-	private void SetShaderRotation(float rotation)
-	{
-		Rotation = rotation;
-		_currentRotation = rotation;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
