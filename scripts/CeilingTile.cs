@@ -14,9 +14,6 @@ public partial class CeilingTile : Polygon2D
 		Stable,
 	}
 
-	private Vector3 _defaultRotation = new(284.438f, 360f, 5.058f);
-	private Vector3 _hangingRotation = new(284.438f, 288f, 5.058f);
-	private float _currentRotation;
 	public TileState TileStatus { get; private set; } = TileState.Stable;
 	private Tween _tween;
 
