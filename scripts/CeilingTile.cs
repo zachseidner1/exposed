@@ -59,12 +59,6 @@ public partial class CeilingTile : Polygon2D
 			{
 				PickupTile();
 			}
-			else if (TileStatus == TileState.Hanging)
-			{
-				GD.Print("x range: " + _bottomLeftPosition.X + ", " + _topRightPosition.X);
-				GD.Print("y range: " + _topRightPosition.Y + ", " + _bottomLeftPosition.Y);
-				GD.Print("mouse coords: " + mouseEvent.Position);
-			}
 		};
 	}
 
