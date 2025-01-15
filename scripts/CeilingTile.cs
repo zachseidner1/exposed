@@ -59,7 +59,8 @@ public partial class CeilingTile : Polygon2D
 			{
 				PickupTile();
 			}
-		};
+		}
+		;
 	}
 
 	/// <summary>
@@ -81,7 +82,6 @@ public partial class CeilingTile : Polygon2D
 
 	private void TweenTileHang()
 	{
-		ShaderMaterial shader = (ShaderMaterial)Material;
 		_tween?.Kill();
 		_tween = GetTree().CreateTween();
 		_tween.TweenMethod(

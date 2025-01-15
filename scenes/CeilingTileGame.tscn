@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://dksyagnnu26fe"]
+[gd_scene load_steps=10 format=3 uid="uid://dksyagnnu26fe"]
 
 [ext_resource type="Script" path="res://scripts/Ceiling.cs" id="2_ujwrd"]
 [ext_resource type="Script" path="res://scripts/CeilingTile.cs" id="3_0ec5c"]
 [ext_resource type="Shader" path="res://shaders/CeilingTile.gdshader" id="4_4epfi"]
 [ext_resource type="Shader" path="res://shaders/postProcessing.gdshader" id="5_qrkvo"]
-[ext_resource type="Texture2D" uid="uid://bu72q5ybma6df" path="res://assets/cat_falling.png" id="6_uyhiv"]
+[ext_resource type="Texture2D" uid="uid://uyjj31hu64ho" path="res://assets/cat_sitting.png" id="6_ck55y"]
 [ext_resource type="Texture2D" uid="uid://bxfssekphdg2l" path="res://assets/walls.png" id="6_xdl7v"]
+[ext_resource type="Script" path="res://scripts/Cat.cs" id="7_gtbmf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o0ldg"]
 shader = ExtResource("4_4epfi")
@@ -104,7 +105,7 @@ centered = false
 
 [node name="Ceiling" type="Node2D" parent="."]
 script = ExtResource("2_ujwrd")
-CeilingDifficulty = 5
+CeilingDifficulty = 0
 
 [node name="tile1" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
 position = Vector2(-43.175, 1)
@@ -187,7 +188,6 @@ offset_bottom = 600.0
 color = Color(0, 0, 0, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="PostProcessing" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_54bqy")
@@ -198,5 +198,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Cat" type="Sprite2D" parent="."]
-position = Vector2(306, 214)
-texture = ExtResource("6_uyhiv")
+position = Vector2(352, 446)
+texture = ExtResource("6_ck55y")
+script = ExtResource("7_gtbmf")
