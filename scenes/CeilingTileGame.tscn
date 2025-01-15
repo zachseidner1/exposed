@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dksyagnnu26fe"]
+[gd_scene load_steps=9 format=3 uid="uid://dksyagnnu26fe"]
 
 [ext_resource type="Script" path="res://scripts/Ceiling.cs" id="2_ujwrd"]
 [ext_resource type="Script" path="res://scripts/CeilingTile.cs" id="3_0ec5c"]
 [ext_resource type="Shader" path="res://shaders/CeilingTile.gdshader" id="4_4epfi"]
 [ext_resource type="Shader" path="res://shaders/postProcessing.gdshader" id="5_qrkvo"]
+[ext_resource type="Texture2D" uid="uid://bu72q5ybma6df" path="res://assets/cat_falling.png" id="6_uyhiv"]
 [ext_resource type="Texture2D" uid="uid://bxfssekphdg2l" path="res://assets/walls.png" id="6_xdl7v"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o0ldg"]
@@ -27,95 +28,6 @@ centered = false
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
 
-[node name="Ceiling" type="Node2D" parent="."]
-script = ExtResource("2_ujwrd")
-
-[node name="tile1" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
-z_index = 1
-position = Vector2(-43.175, 1)
-color = Color(0.97, 0.97, 0.97, 1)
-polygon = PackedVector2Array(197.915, -1, 229.915, 70, 53.915, 70, 0, 0)
-script = ExtResource("3_0ec5c")
-
-[node name="tile2" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
-z_index = 1
-material = SubResource("ShaderMaterial_o0ldg")
-position = Vector2(169.455, 0)
-rotation = 0.00872665
-color = Color(0.97, 0.97, 0.97, 1)
-polygon = PackedVector2Array(0, 0, 213, 0, 208, 71, 28, 73)
-script = ExtResource("3_0ec5c")
-
-[node name="tile3" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
-z_index = 1
-position = Vector2(395.37, 0)
-color = Color(0.97, 0.97, 0.97, 1)
-polygon = PackedVector2Array(0, 0, -6.37, 72, 169, 72, 210.63, 1)
-script = ExtResource("3_0ec5c")
-
-[node name="tile4" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
-z_index = 1
-position = Vector2(13.97, 75.435)
-color = Color(0.97, 0.97, 0.97, 1)
-polygon = PackedVector2Array(176, 1, 197, 51, 44, 52, 0, 0)
-script = ExtResource("3_0ec5c")
-
-[node name="tile5" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
-z_index = 1
-position = Vector2(200.525, 77.08)
-color = Color(0.97, 0.97, 0.97, 1)
-polygon = PackedVector2Array(0, 0, 19, 51, 175, 51, 178, 0)
-script = ExtResource("3_0ec5c")
-
-[node name="tile6" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
-z_index = 1
-position = Vector2(389.285, 76.795)
-color = Color(0.97, 0.97, 0.97, 1)
-polygon = PackedVector2Array(0, 0, 176, 1, 149, 51, -5, 51)
-script = ExtResource("3_0ec5c")
-
-[node name="tile7" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
-z_index = 1
-position = Vector2(57.98, 131.415)
-color = Color(0.97, 0.97, 0.97, 1)
-polygon = PackedVector2Array(154, 0, 169, 39, 36, 41, 0, 0)
-script = ExtResource("3_0ec5c")
-
-[node name="tile8" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
-z_index = 1
-position = Vector2(222, 132)
-color = Color(0.97, 0.97, 0.97, 1)
-polygon = PackedVector2Array(0, 0, 151, 0, 149, 41, 15, 41)
-script = ExtResource("3_0ec5c")
-
-[node name="tile9" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
-z_index = 1
-position = Vector2(383, 132)
-color = Color(0.97, 0.97, 0.97, 1)
-polygon = PackedVector2Array(0, -1, -4, 40, 131, 40, 152, 0)
-script = ExtResource("3_0ec5c")
-
-[node name="tile10" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
-z_index = 1
-position = Vector2(98, 176)
-color = Color(0.97, 0.97, 0.97, 1)
-polygon = PackedVector2Array(0, 0, 130, 0, 143, 30, 26, 31)
-script = ExtResource("3_0ec5c")
-
-[node name="tile11" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
-z_index = 1
-position = Vector2(237, 176)
-color = Color(0.97, 0.97, 0.97, 1)
-polygon = PackedVector2Array(0, 0, 11, 31, 130, 31, 133, 0)
-script = ExtResource("3_0ec5c")
-
-[node name="tile12" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
-z_index = 1
-position = Vector2(377, 175)
-color = Color(0.97, 0.97, 0.97, 1)
-polygon = PackedVector2Array(1.42, 1.62, -2, 33, 118, 32, 134, 1)
-script = ExtResource("3_0ec5c")
-
 [node name="OtherTiles" type="Node2D" parent="."]
 
 [node name="Polygon2D" type="Polygon2D" parent="OtherTiles"]
@@ -138,25 +50,30 @@ polygon = PackedVector2Array(503, 206, 520, 175, 654, 176, 632, 206)
 color = Color(0.97, 0.97, 0.97, 1)
 
 [node name="Polygon2D6" type="Polygon2D" parent="OtherTiles"]
+visible = false
 position = Vector2(0, 2)
 color = Color(0.97, 0.97, 0.97, 1)
 polygon = PackedVector2Array(499, 208, 491, 224, 599, 224, 615, 208)
 
 [node name="Polygon2D7" type="Polygon2D" parent="OtherTiles"]
+visible = false
 position = Vector2(0, 28.0002)
 scale = Vector2(1, 0.874999)
 color = Color(0.97, 0.97, 0.97, 1)
 polygon = PackedVector2Array(373, 208, 494, 208, 484, 224, 373, 224)
 
 [node name="Polygon2D8" type="Polygon2D" parent="OtherTiles"]
+visible = false
 color = Color(0.97, 0.97, 0.97, 1)
 polygon = PackedVector2Array(367, 210, 249, 209, 254, 224, 366, 224)
 
 [node name="Polygon2D9" type="Polygon2D" parent="OtherTiles"]
+visible = false
 color = Color(0.97, 0.97, 0.97, 1)
 polygon = PackedVector2Array(126.3, 209, 140, 225, 249, 225, 240, 209)
 
 [node name="Polygon2D10" type="Polygon2D" parent="OtherTiles"]
+visible = false
 color = Color(0.97, 0.97, 0.97, 1)
 polygon = PackedVector2Array(113.28, 208, 0, 208, 23, 225, 131, 225)
 
@@ -180,6 +97,89 @@ polygon = PackedVector2Array(11, 225, -17, 205, -31, 225)
 color = Color(0.97, 0.97, 0.97, 1)
 polygon = PackedVector2Array(6, 73, -1, 65, -25, 65, -4, 73)
 
+[node name="WallsTexture" type="Sprite2D" parent="."]
+position = Vector2(0, 150.84)
+texture = ExtResource("6_xdl7v")
+centered = false
+
+[node name="Ceiling" type="Node2D" parent="."]
+script = ExtResource("2_ujwrd")
+CeilingDifficulty = 5
+
+[node name="tile1" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
+position = Vector2(-43.175, 1)
+color = Color(0.97, 0.97, 0.97, 1)
+polygon = PackedVector2Array(197.915, -1, 229.915, 70, 53.915, 70, 0, 0)
+script = ExtResource("3_0ec5c")
+
+[node name="tile2" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
+material = SubResource("ShaderMaterial_o0ldg")
+position = Vector2(169.455, 0)
+rotation = 0.00872665
+color = Color(0.97, 0.97, 0.97, 1)
+polygon = PackedVector2Array(0, 0, 213, 0, 208, 71, 28, 73)
+script = ExtResource("3_0ec5c")
+
+[node name="tile3" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
+position = Vector2(395.37, 0)
+color = Color(0.97, 0.97, 0.97, 1)
+polygon = PackedVector2Array(0, 0, -6.37, 72, 169, 72, 210.63, 1)
+script = ExtResource("3_0ec5c")
+
+[node name="tile4" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
+position = Vector2(13.97, 75.435)
+color = Color(0.97, 0.97, 0.97, 1)
+polygon = PackedVector2Array(176, 1, 197, 51, 44, 52, 0, 0)
+script = ExtResource("3_0ec5c")
+
+[node name="tile5" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
+position = Vector2(200.525, 77.08)
+color = Color(0.97, 0.97, 0.97, 1)
+polygon = PackedVector2Array(0, 0, 19, 51, 175, 51, 178, 0)
+script = ExtResource("3_0ec5c")
+
+[node name="tile6" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
+position = Vector2(389.285, 76.795)
+color = Color(0.97, 0.97, 0.97, 1)
+polygon = PackedVector2Array(0, 0, 176, 1, 149, 51, -5, 51)
+script = ExtResource("3_0ec5c")
+
+[node name="tile7" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
+position = Vector2(57.98, 131.415)
+color = Color(0.97, 0.97, 0.97, 1)
+polygon = PackedVector2Array(154, 0, 169, 39, 36, 41, 0, 0)
+script = ExtResource("3_0ec5c")
+
+[node name="tile8" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
+position = Vector2(222, 132)
+color = Color(0.97, 0.97, 0.97, 1)
+polygon = PackedVector2Array(0, 0, 151, 0, 149, 41, 15, 41)
+script = ExtResource("3_0ec5c")
+
+[node name="tile9" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
+position = Vector2(383, 132)
+color = Color(0.97, 0.97, 0.97, 1)
+polygon = PackedVector2Array(0, -1, -4, 40, 131, 40, 152, 0)
+script = ExtResource("3_0ec5c")
+
+[node name="tile10" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
+position = Vector2(98, 176)
+color = Color(0.97, 0.97, 0.97, 1)
+polygon = PackedVector2Array(0, 0, 130, 0, 143, 30, 26, 31)
+script = ExtResource("3_0ec5c")
+
+[node name="tile11" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
+position = Vector2(237, 176)
+color = Color(0.97, 0.97, 0.97, 1)
+polygon = PackedVector2Array(0, 0, 11, 31, 130, 31, 133, 0)
+script = ExtResource("3_0ec5c")
+
+[node name="tile12" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
+position = Vector2(377, 175)
+color = Color(0.97, 0.97, 0.97, 1)
+polygon = PackedVector2Array(1.42, 1.62, -2, 33, 118, 32, 134, 1)
+script = ExtResource("3_0ec5c")
+
 [node name="BackgroundColor" type="ColorRect" parent="."]
 z_index = -99
 offset_right = 600.0
@@ -187,6 +187,7 @@ offset_bottom = 600.0
 color = Color(0, 0, 0, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="PostProcessing" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_54bqy")
@@ -196,7 +197,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="WallsTexture" type="Sprite2D" parent="."]
-position = Vector2(0, 150.84)
-texture = ExtResource("6_xdl7v")
-centered = false
+[node name="Cat" type="Sprite2D" parent="."]
+position = Vector2(306, 214)
+texture = ExtResource("6_uyhiv")

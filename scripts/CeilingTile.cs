@@ -127,7 +127,7 @@ public partial class CeilingTile : Polygon2D
 	{
 		_tween?.Kill();
 		_tween = GetTree().CreateTween();
-		var fallenPosition = new Vector2(Position.X, 500);
+		var fallenPosition = new Vector2(Position.X, 600);
 		_tween.TweenMethod(Callable.From((Vector2 position) =>
 		{
 			Position = position;
