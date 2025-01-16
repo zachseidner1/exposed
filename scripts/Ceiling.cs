@@ -8,7 +8,6 @@ public partial class Ceiling : Node2D
 	private List<CeilingTile> _tiles = new();
 
 	private Timer timer;
-	private Random random;
 
 
 	[Export(PropertyHint.Range, "0,20,1")]
@@ -19,10 +18,9 @@ public partial class Ceiling : Node2D
 	{
 		timer = GetNode<Timer>("../Timer");
 		timer.Timeout += () => HangRandomTile();
-		random = new Random();
 
 		_tiles = GetTree().GetNodesInGroup("tiles").Cast<CeilingTile>().ToList();
-		// timer.Start(3);
+		timer.Start(3);
 	}
 
 	private void HangRandomTile()

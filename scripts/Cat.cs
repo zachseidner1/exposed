@@ -68,12 +68,9 @@ public partial class Cat : Sprite2D
 		}
 
 		Vector2 targetPosition = _tiles[tileToJumpTo].Position;
-		Position = targetPosition;
-		// GD.Print("original target: " + targetPosition);
 		targetPosition.X += _tiles[tileToJumpTo].Width / 2;
 		targetPosition.Y += _tiles[tileToJumpTo].Height / 2;
 
-		// GD.Print("new target: " + targetPosition);
 
 		// Flip if travelling left
 		FlipH = targetPosition.X < Position.X;
@@ -85,15 +82,14 @@ public partial class Cat : Sprite2D
 		{
 			Offset = new Vector2(-16, Offset.Y);
 		}
-		// TODO FIXME HELP
-		Position = targetPosition;
 
 		_tween?.Kill();
 		_tween = GetTree().CreateTween();
 		_tween.TweenMethod(
 			Callable.From((Vector2 pos) => Position = pos),
-			Position, _tiles[tileToJumpTo].Position, 1.0f);
+			Position, targetPosition, 1.0f);
 		_tween.Finished += Fall;
+		_tween.Finished += () => { _tiles[tileToJumpTo].FallTile(); };
 	}
 	private void Fall()
 	{

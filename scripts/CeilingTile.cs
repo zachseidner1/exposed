@@ -121,7 +121,7 @@ public partial class CeilingTile : Polygon2D
 				 .SetEase(Tween.EaseType.Out);
 	}
 
-	private void FallTile()
+	public void FallTile()
 	{
 		TileStatus = TileState.Fallen;
 		TweenTileFall();
