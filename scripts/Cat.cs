@@ -32,15 +32,17 @@ public partial class Cat : Sprite2D
 	public override void _Ready()
 	{
 		_tiles = GetTree().GetNodesInGroup("tiles").Cast<CeilingTile>().ToList();
-		_jumpTimer = new();
+		_jumpTimer = new()
+		{
+			OneShot = true
+		};
 		AddChild(_jumpTimer);
-		_sitting = Texture;
+		_sitting = GD.Load<Texture2D>("res://assets/cat_sitting.png");
 		_jumping = GD.Load<Texture2D>("res://assets/cat_jumping.png");
 		_falling = GD.Load<Texture2D>("res://assets/cat_falling.png");
+
 		_jumpTimer.Timeout += Jump;
 
-		GD.Print("jump timer started");
-		// TODO figure out why timer keeps going
 		_jumpTimer.Start(GetNextJumpTime());
 	}
 
@@ -51,32 +53,62 @@ public partial class Cat : Sprite2D
 	private double GetJumpTime()
 	{
 		// TODO some formula based on cat difficulty value
-		return 1;
+		return 2;
 	}
 
 	private void Jump()
 	{
+		CatStatus = CatState.Jumping;
 		Texture = _jumping;
+
 		int tileToJumpTo = Random.Next(_tiles.Count);
 		while (_tiles[tileToJumpTo].TileStatus != CeilingTile.TileState.Stable)
 		{
 			tileToJumpTo = Random.Next(_tiles.Count);
 		}
+
+		Vector2 targetPosition = _tiles[tileToJumpTo].Position;
+		Position = targetPosition;
+		// GD.Print("original target: " + targetPosition);
+		targetPosition.X += _tiles[tileToJumpTo].Width / 2;
+		targetPosition.Y += _tiles[tileToJumpTo].Height / 2;
+
+		// GD.Print("new target: " + targetPosition);
+
+		// Flip if travelling left
+		FlipH = targetPosition.X < Position.X;
+		if (targetPosition.X < Position.X)
+		{
+			Offset = new Vector2(16, Offset.Y);
+		}
+		else
+		{
+			Offset = new Vector2(-16, Offset.Y);
+		}
+		// TODO FIXME HELP
+		Position = targetPosition;
+
 		_tween?.Kill();
 		_tween = GetTree().CreateTween();
 		_tween.TweenMethod(
-			Callable.From((Vector2 tween) => Position = tween),
+			Callable.From((Vector2 pos) => Position = pos),
 			Position, _tiles[tileToJumpTo].Position, 1.0f);
 		_tween.Finished += Fall;
 	}
 	private void Fall()
 	{
+		CatStatus = CatState.Falling;
 		_tween?.Kill();
 		_tween = GetTree().CreateTween();
 		Texture = _falling;
 		_tween.TweenMethod(
-			Callable.From((Vector2 tween) => Position = tween),
-			Position, new Vector2(Position.X, Position.Y + 200), 1.0f);
+			Callable.From((Vector2 pos) => Position = pos),
+			Position, new Vector2(Math.Clamp(Position.X, 144, 456), 370), 1.0f);
+		_tween.Finished += () =>
+		{
+			Texture = _sitting;
+		};
+		_jumpTimer.Start(GetNextJumpTime());
 	}
 
 	public override void _Input(InputEvent @event)
@@ -88,14 +120,17 @@ public partial class Cat : Sprite2D
 			{
 				if (GetRect().HasPoint(ToLocal(inputEventMouse.Position)))
 				{
-					GD.Print("A click!");
+					Clicked();
 				}
 			}
 		}
 	}
 	private void Clicked()
 	{
-		GD.Print("Clicked");
+		if (CatStatus == CatState.Jumping)
+		{
+			Fall();
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

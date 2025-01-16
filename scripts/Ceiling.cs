@@ -22,7 +22,7 @@ public partial class Ceiling : Node2D
 		random = new Random();
 
 		_tiles = GetTree().GetNodesInGroup("tiles").Cast<CeilingTile>().ToList();
-		timer.Start(3);
+		// timer.Start(3);
 	}
 
 	private void HangRandomTile()

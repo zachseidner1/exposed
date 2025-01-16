@@ -29,6 +29,9 @@ public partial class CeilingTile : Polygon2D
 	/// minimum y of the vertices of the polygon
 	/// </summary>
 	private Vector2 _topRightPosition;
+
+	public float Width { get; private set; }
+	public float Height { get; private set; }
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -41,6 +44,8 @@ public partial class CeilingTile : Polygon2D
 
 		_bottomLeftPosition = new(polygonXs.Min(), polygonYs.Max());
 		_topRightPosition = new(polygonXs.Max(), polygonYs.Min());
+		Width = _topRightPosition.X - _bottomLeftPosition.X;
+		Height = _bottomLeftPosition.Y - _topRightPosition.Y;
 	}
 
 	public override void _Input(InputEvent @event)
