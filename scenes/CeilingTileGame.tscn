@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dksyagnnu26fe"]
+[gd_scene load_steps=12 format=3 uid="uid://dksyagnnu26fe"]
 
 [ext_resource type="Script" path="res://scripts/Ceiling.cs" id="2_ujwrd"]
 [ext_resource type="Script" path="res://scripts/CeilingTile.cs" id="3_0ec5c"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://uyjj31hu64ho" path="res://assets/cat_sitting.png" id="6_45an0"]
 [ext_resource type="Texture2D" uid="uid://bxfssekphdg2l" path="res://assets/walls.png" id="6_xdl7v"]
 [ext_resource type="Script" path="res://scripts/Cat.cs" id="7_gtbmf"]
+[ext_resource type="Texture2D" uid="uid://3veagc2wflga" path="res://assets/bat.png" id="8_lnddi"]
+[ext_resource type="Script" path="res://scripts/Bat.cs" id="9_50trw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o0ldg"]
 shader = ExtResource("4_4epfi")
@@ -103,8 +105,9 @@ position = Vector2(0, 150.84)
 texture = ExtResource("6_xdl7v")
 centered = false
 
-[node name="Ceiling" type="Node2D" parent="."]
+[node name="Ceiling" type="Node2D" parent="." node_paths=PackedStringArray("bat")]
 script = ExtResource("2_ujwrd")
+bat = NodePath("../Bat")
 CeilingDifficulty = 5
 
 [node name="tile1" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
@@ -203,3 +206,10 @@ texture = ExtResource("6_45an0")
 offset = Vector2(15.83, 70.635)
 flip_h = true
 script = ExtResource("7_gtbmf")
+
+[node name="Bat" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(338, 218)
+scale = Vector2(11.685, 11.685)
+texture = ExtResource("8_lnddi")
+script = ExtResource("9_50trw")

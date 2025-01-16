@@ -67,10 +67,7 @@ public partial class Cat : Sprite2D
 			tileToJumpTo = Random.Next(_tiles.Count);
 		}
 
-		Vector2 targetPosition = _tiles[tileToJumpTo].Position;
-		targetPosition.X += _tiles[tileToJumpTo].Width / 2;
-		targetPosition.Y += _tiles[tileToJumpTo].Height / 2;
-
+		Vector2 targetPosition = _tiles[tileToJumpTo].Center;
 
 		// Flip if travelling left
 		FlipH = targetPosition.X < Position.X;

@@ -20,6 +20,13 @@ public partial class CeilingTile : Polygon2D
 	private Timer _fallTimer;
 
 	/// <summary>
+	/// Signal ran whenever a ceiling tile falls
+	/// </summary>
+	/// <param name="tileCenter">The global coordinates of the center of the fallen ceiling tile.</param>
+	[Signal]
+	public delegate void CeilingTileFallenEventHandler(Vector2 tileCenter);
+
+	/// <summary>
 	/// Not guaranteed to be a vertice, a vector that contains the minimum x and 
 	/// maximum y of the vertices of the polygon
 	/// </summary>
@@ -32,6 +39,8 @@ public partial class CeilingTile : Polygon2D
 
 	public float Width { get; private set; }
 	public float Height { get; private set; }
+
+	public Vector2 Center { get; private set; }
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -46,6 +55,7 @@ public partial class CeilingTile : Polygon2D
 		_topRightPosition = new(polygonXs.Max(), polygonYs.Min());
 		Width = _topRightPosition.X - _bottomLeftPosition.X;
 		Height = _bottomLeftPosition.Y - _topRightPosition.Y;
+		Center = new Vector2(Position.X + Width / 2, Position.Y + Height / 2);
 	}
 
 	public override void _Input(InputEvent @event)
@@ -126,6 +136,7 @@ public partial class CeilingTile : Polygon2D
 		TileStatus = TileState.Fallen;
 		TweenTileFall();
 		_fallTimer.QueueFree();
+		EmitSignal(SignalName.CeilingTileFallen, Center);
 	}
 
 	private void TweenTileFall()
