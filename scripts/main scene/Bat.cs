@@ -24,6 +24,7 @@ public partial class Bat : Sprite2D
 		Visible = true;
 		_tween?.Kill();
 		_tween = GetTree().CreateTween();
+		_tween.SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Quart);
 		_tween.TweenProperty(this, "position", finalPosition, 1);
 		_tween.Parallel().TweenProperty(this, "scale", finalScale, 1);
 		_tween.Finished += () => { Visible = false; };

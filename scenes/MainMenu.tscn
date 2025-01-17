@@ -1,18 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://dph62voqtusxq"]
+[gd_scene load_steps=10 format=3 uid="uid://dph62voqtusxq"]
 
+[ext_resource type="Script" path="res://scripts/start menu/MainMenu.cs" id="1_8ptep"]
 [ext_resource type="FontFile" uid="uid://bapivjukjk0sp" path="res://assets/fonts/Mleitod Personal Use Only.ttf" id="1_ugm3c"]
 [ext_resource type="FontFile" uid="uid://2g1as66iwxo6" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="2_cpcph"]
-[ext_resource type="Texture2D" uid="uid://b3v2ulhxmqrvj" path="res://assets/button_unselected.png" id="3_i0n8o"]
-[ext_resource type="Texture2D" uid="uid://dip05d0qkwn7s" path="res://assets/button_selected.png" id="4_w8vos"]
+[ext_resource type="Shader" path="res://shaders/postProcessing.gdshader" id="3_iedvi"]
+[ext_resource type="Texture2D" uid="uid://ch8cbsl81w726" path="res://assets/selected_icon.png" id="3_xnb8d"]
+[ext_resource type="Script" path="res://scripts/start menu/CursorTile.cs" id="3_xwhpy"]
+[ext_resource type="Script" path="res://scripts/start menu/IconButton.cs" id="4_meem4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rmub8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4d6ba"]
+shader = ExtResource("3_iedvi")
+shader_parameter/size = Vector2(32, 28)
 
 [node name="Main" type="MarginContainer"]
 offset_right = 600.0
 offset_bottom = 600.0
-
-[node name="Background" type="ColorRect" parent="."]
-z_index = -999
-layout_mode = 2
-color = Color(0, 0, 0, 1)
+script = ExtResource("1_8ptep")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -38,9 +43,50 @@ theme_override_font_sizes/font_size = 18
 text = "The First Ceiling Tile Type Horror Game"
 horizontal_alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+z_index = 1
 texture_filter = 1
 layout_mode = 2
-texture_normal = ExtResource("3_i0n8o")
-texture_pressed = ExtResource("4_w8vos")
-texture_hover = ExtResource("4_w8vos")
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("2_cpcph")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/hover = SubResource("StyleBoxEmpty_rmub8")
+text = "New Game"
+script = ExtResource("4_meem4")
+IconTexture = ExtResource("3_xnb8d")
+
+[node name="CursorTile" type="Polygon2D" parent="." groups=["tiles"]]
+z_index = 5
+position = Vector2(158, 255)
+color = Color(0.97, 0.97, 0.97, 1)
+polygon = PackedVector2Array(101.69, -1, 150.215, 40.365, 41.62, 40, 0, 0)
+script = ExtResource("3_xwhpy")
+
+[node name="Background" type="ColorRect" parent="."]
+z_index = -10
+layout_mode = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="PostProcessing" type="ColorRect" parent="."]
+z_index = 10
+z_as_relative = false
+material = SubResource("ShaderMaterial_4d6ba")
+layout_mode = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Button" to="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Button" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Button" to="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Button" method="OnMouseExited"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Button" to="." method="OnNewGamePressed"]

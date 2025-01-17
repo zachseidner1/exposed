@@ -10,7 +10,17 @@ public partial class Ceiling : Node2D
 	private Timer timer;
 
 	[Export]
-	public Bat bat;
+	public Bat Bat;
+
+	private double _elapsedTime;
+
+	[Export]
+	public Label TimeLabel;
+
+	/// <summary>
+	/// The length of one in-game hour, in seconds
+	/// </summary>
+	private readonly int _hourLength = 60;
 
 
 	[Export(PropertyHint.Range, "0,20,1")]
@@ -39,7 +49,7 @@ public partial class Ceiling : Node2D
 		{
 			timer.Stop();
 			timer.QueueFree();
-			bat.ScarePlayer(tileCenter);
+			Bat.ScarePlayer(tileCenter);
 		}
 	}
 
@@ -64,5 +74,16 @@ public partial class Ceiling : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		_elapsedTime += delta;
+		TimeLabel.Text = GetCurrentHour() + " AM";
+		if (GetCurrentHour() == 6)
+		{
+			// TODO end game
+		}
+	}
+
+	private int GetCurrentHour()
+	{
+		return (int)_elapsedTime / _hourLength + 1;
 	}
 }

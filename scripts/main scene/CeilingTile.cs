@@ -15,7 +15,7 @@ public partial class CeilingTile : Polygon2D
 	}
 
 	public TileState TileStatus { get; private set; } = TileState.Stable;
-	private Tween _tween;
+	public Tween MyTween;
 
 	private Timer _fallTimer;
 
@@ -95,15 +95,21 @@ public partial class CeilingTile : Polygon2D
 		return true;
 	}
 
-	private void TweenTileHang()
+	protected void TweenTileHang()
 	{
-		_tween?.Kill();
-		_tween = GetTree().CreateTween();
-		_tween.TweenMethod(
+		TweenTileHang(() => { });
+	}
+
+	protected void TweenTileHang(Action after)
+	{
+		MyTween?.Kill();
+		MyTween = GetTree().CreateTween();
+		MyTween.TweenMethod(
 				Callable.From((float rotation) => Rotation = rotation),
 				0f, 1.22173f, 1.0f)
 				 .SetTrans(Tween.TransitionType.Elastic)
 				 .SetEase(Tween.EaseType.Out);
+		MyTween.Finished += after;
 	}
 
 	/// <summary>
@@ -119,16 +125,22 @@ public partial class CeilingTile : Polygon2D
 		return true;
 	}
 
-	private void TweenTilePickup()
+	protected void TweenTilePickup()
+	{
+		TweenTilePickup(() => { });
+	}
+
+	protected void TweenTilePickup(Action after)
 	{
 		ShaderMaterial shader = (ShaderMaterial)Material;
-		_tween?.Kill();
-		_tween = GetTree().CreateTween();
-		_tween.TweenMethod(
+		MyTween?.Kill();
+		MyTween = GetTree().CreateTween();
+		MyTween.TweenMethod(
 				Callable.From((float rotation) => Rotation = rotation),
 				 1.22173f, 0f, 0.5f)
 				 .SetTrans(Tween.TransitionType.Quart)
 				 .SetEase(Tween.EaseType.Out);
+		MyTween.Finished += after;
 	}
 
 	public void FallTile()
@@ -139,17 +151,23 @@ public partial class CeilingTile : Polygon2D
 		EmitSignal(SignalName.CeilingTileFallen, Center);
 	}
 
-	private void TweenTileFall()
+	protected void TweenTileFall()
 	{
-		_tween?.Kill();
-		_tween = GetTree().CreateTween();
+		TweenTileFall(() => { });
+	}
+
+	protected void TweenTileFall(Action after)
+	{
+		MyTween?.Kill();
+		MyTween = GetTree().CreateTween();
 		var fallenPosition = new Vector2(Position.X, 600);
-		_tween.TweenMethod(Callable.From((Vector2 position) =>
+		MyTween.TweenMethod(Callable.From((Vector2 position) =>
 		{
 			Position = position;
 		}), Position, fallenPosition, 1.0)
 		.SetTrans(Tween.TransitionType.Sine)
 		.SetEase(Tween.EaseType.In);
+		MyTween.Finished += after;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

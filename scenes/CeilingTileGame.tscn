@@ -1,14 +1,15 @@
-[gd_scene load_steps=12 format=3 uid="uid://dksyagnnu26fe"]
+[gd_scene load_steps=13 format=3 uid="uid://dksyagnnu26fe"]
 
-[ext_resource type="Script" path="res://scripts/Ceiling.cs" id="2_ujwrd"]
-[ext_resource type="Script" path="res://scripts/CeilingTile.cs" id="3_0ec5c"]
+[ext_resource type="Script" path="res://scripts/main scene/Ceiling.cs" id="2_ujwrd"]
+[ext_resource type="Script" path="res://scripts/main scene/CeilingTile.cs" id="3_0ec5c"]
 [ext_resource type="Shader" path="res://shaders/CeilingTile.gdshader" id="4_4epfi"]
 [ext_resource type="Shader" path="res://shaders/postProcessing.gdshader" id="5_qrkvo"]
+[ext_resource type="FontFile" uid="uid://2g1as66iwxo6" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="5_svxjy"]
 [ext_resource type="Texture2D" uid="uid://uyjj31hu64ho" path="res://assets/cat_sitting.png" id="6_45an0"]
 [ext_resource type="Texture2D" uid="uid://bxfssekphdg2l" path="res://assets/walls.png" id="6_xdl7v"]
-[ext_resource type="Script" path="res://scripts/Cat.cs" id="7_gtbmf"]
+[ext_resource type="Script" path="res://scripts/main scene/Cat.cs" id="7_gtbmf"]
 [ext_resource type="Texture2D" uid="uid://3veagc2wflga" path="res://assets/bat.png" id="8_lnddi"]
-[ext_resource type="Script" path="res://scripts/Bat.cs" id="9_50trw"]
+[ext_resource type="Script" path="res://scripts/main scene/Bat.cs" id="9_50trw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o0ldg"]
 shader = ExtResource("4_4epfi")
@@ -105,9 +106,10 @@ position = Vector2(0, 150.84)
 texture = ExtResource("6_xdl7v")
 centered = false
 
-[node name="Ceiling" type="Node2D" parent="." node_paths=PackedStringArray("bat")]
+[node name="Ceiling" type="Node2D" parent="." node_paths=PackedStringArray("Bat", "TimeLabel")]
 script = ExtResource("2_ujwrd")
-bat = NodePath("../Bat")
+Bat = NodePath("../Bat")
+TimeLabel = NodePath("../CanvasLayer/Screen/MarginContainer/TimeLabel")
 CeilingDifficulty = 5
 
 [node name="tile1" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
@@ -192,6 +194,34 @@ color = Color(0, 0, 0, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="Screen" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Screen"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -116.0
+offset_top = -67.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 8
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer/Screen/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_svxjy")
+theme_override_font_sizes/font_size = 48
+text = "6 AM"
+
 [node name="PostProcessing" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_54bqy")
 anchors_preset = 15
@@ -199,6 +229,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="Cat" type="Sprite2D" parent="."]
 position = Vector2(317, 380)
@@ -208,6 +239,7 @@ flip_h = true
 script = ExtResource("7_gtbmf")
 
 [node name="Bat" type="Sprite2D" parent="."]
+visible = false
 texture_filter = 1
 position = Vector2(338, 218)
 scale = Vector2(11.685, 11.685)
