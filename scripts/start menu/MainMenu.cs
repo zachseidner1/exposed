@@ -16,7 +16,7 @@ public partial class MainMenu : MarginContainer
 	public void OnNewGamePressed()
 	{
 		Tween tween = GetTree().CreateTween();
-		tween.TweenProperty(this, "modulate", new Color(1, 1, 1, 0), 2.0)
+		tween.TweenProperty(this, "modulate", new Color(1, 1, 1, 0), 3.0)
 			.SetTrans(Tween.TransitionType.Cubic)
 			.SetEase(Tween.EaseType.Out);
 		tween.Finished += () =>

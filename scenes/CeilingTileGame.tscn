@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dksyagnnu26fe"]
+[gd_scene load_steps=14 format=3 uid="uid://dksyagnnu26fe"]
 
 [ext_resource type="Script" path="res://scripts/main scene/Ceiling.cs" id="2_ujwrd"]
 [ext_resource type="Script" path="res://scripts/main scene/CeilingTile.cs" id="3_0ec5c"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/main scene/Cat.cs" id="7_gtbmf"]
 [ext_resource type="Texture2D" uid="uid://3veagc2wflga" path="res://assets/bat.png" id="8_lnddi"]
 [ext_resource type="Script" path="res://scripts/main scene/Bat.cs" id="9_50trw"]
+[ext_resource type="Texture2D" uid="uid://c0m4sjg7sn6me" path="res://assets/phone.png" id="11_psfmx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o0ldg"]
 shader = ExtResource("4_4epfi")
@@ -245,3 +246,8 @@ position = Vector2(338, 218)
 scale = Vector2(11.685, 11.685)
 texture = ExtResource("8_lnddi")
 script = ExtResource("9_50trw")
+
+[node name="Phone" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(67, 357)
+texture = ExtResource("11_psfmx")
