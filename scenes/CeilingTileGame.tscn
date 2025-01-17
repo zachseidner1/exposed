@@ -239,6 +239,11 @@ offset = Vector2(15.83, 70.635)
 flip_h = true
 script = ExtResource("7_gtbmf")
 
+[node name="Phone" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(67, 357)
+texture = ExtResource("11_psfmx")
+
 [node name="Bat" type="Sprite2D" parent="."]
 visible = false
 texture_filter = 1
@@ -246,8 +251,3 @@ position = Vector2(338, 218)
 scale = Vector2(11.685, 11.685)
 texture = ExtResource("8_lnddi")
 script = ExtResource("9_50trw")
-
-[node name="Phone" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(67, 357)
-texture = ExtResource("11_psfmx")
