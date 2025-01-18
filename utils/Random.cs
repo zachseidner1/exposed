@@ -19,6 +19,19 @@ public class Random
   }
 
   /// <summary>
+  /// Returns a random double between the lower and upper bound, inclusive both 
+  /// ways.
+  /// </summary>
+  /// <param name="lower">The lower bound</param>
+  /// <param name="upper">The upper bound</param>
+  /// <returns>a random double between the lower and upper bound, inclusive both 
+  /// ways</returns>
+  public static double Next(double lower, double upper)
+  {
+    return _random.NextDouble() * (upper - lower) + lower;
+  }
+
+  /// <summary>
   /// Returns a random integer between the lower and upper bound, inclusive both
   /// ways.
   /// </summary>

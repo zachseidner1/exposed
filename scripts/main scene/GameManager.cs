@@ -28,7 +28,7 @@ public partial class GameManager : Node2D
 	/// <summary>
 	/// The length of one in-game hour, in seconds
 	/// </summary>
-	private readonly int _hourLength = 20;
+	private readonly int _hourLength = 30;
 
 
 	[Export(PropertyHint.Range, "0,20,1")]
@@ -43,7 +43,7 @@ public partial class GameManager : Node2D
 	{
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		InitGameObjects();
-		BeginLevel1();
+		BeginPhoneLevel();
 	}
 
 	private void InitGameObjects()
@@ -75,35 +75,40 @@ public partial class GameManager : Node2D
 		{
 			tileToHang = Random.Next(_tiles.Count);
 		}
+		if (tileToHang == Eyes.TileHidingUnder)
+		{
+			Eyes.OnTileExposed();
+		}
 	}
 
 	private double GetNextHangDelay()
 	{
-		double hangDelay = 1 - CeilingDifficulty / 50.0;
-		hangDelay -= Random.Next(0f, 0.55f) * CeilingDifficulty * .05;
-		hangDelay = Math.Clamp(hangDelay, 0.05, 1 - CeilingDifficulty / 50.0);
-		return hangDelay;
-	}
+		double maxHangTime = Math.Pow(0.8, CeilingDifficulty - 10) + 0.7;
+		double minHangTime = Math.Pow(0.8, CeilingDifficulty - .8) + 0.05;
+		double hangTime = Random.Next(minHangTime, maxHangTime);
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		_elapsedTime += delta;
-		TimeLabel.Text = GetCurrentHour() + " AM";
-		if (GetCurrentHour() == 6)
+		if (CeilingDifficulty >= 10 && hangTime < (maxHangTime + minHangTime) / 2.0)
 		{
-			// TODO end level
+			hangTime = Random.Next(minHangTime, maxHangTime);
 		}
+		return Math.Clamp(hangTime, 0.05, 5);
 	}
 
-	private int GetCurrentHour()
-	{
-		return (int)_elapsedTime / _hourLength + 1;
-	}
-
-	private void BeginLevel1()
+	private void BeginPhoneLevel()
 	{
 		Phone.BeginCall();
+	}
+
+	private void OnPhoneCallFinished()
+	{
+		CeilingHangTimer.Start(GetNextHangDelay());
+	}
+
+	private void OnHour3Reached()
+	{
+		Eyes.HideUnderTile();
+		CeilingDifficulty = 1;
+		CeilingHangTimer.Start(GetNextHangDelay());
 	}
 
 }

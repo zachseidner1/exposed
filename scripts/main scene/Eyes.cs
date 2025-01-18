@@ -9,7 +9,15 @@ public partial class Eyes : Sprite2D
 
 	private Timer _timer;
 
-	private int _tileHidingUnder = -1;
+	public int TileHidingUnder = -1;
+
+	[Export]
+	public AudioStreamPlayer Player;
+
+	[Export]
+	public AudioStream ScareSoundEffect;
+
+	private Boolean _disabled;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -19,40 +27,37 @@ public partial class Eyes : Sprite2D
 		{
 			OneShot = true
 		};
+		AddChild(_timer);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		// TODO this logic is not the best, should use object visitor but this is a 
-		// small scale game so I don't care that much 
-		if (_tileHidingUnder != -1)
-		{
-			if (_tiles[_tileHidingUnder].TileStatus == CeilingTile.TileState.Hanging)
-			{
-				OnTileExposed();
-			}
-		}
 	}
 
 	public void HideUnderTile()
 	{
-		_tileHidingUnder = Random.Next(_tiles.Count);
-		while (_tiles[_tileHidingUnder].TileStatus != CeilingTile.TileState.Stable)
+		TileHidingUnder = Random.Next(_tiles.Count);
+		while (_tiles[TileHidingUnder].TileStatus != CeilingTile.TileState.Stable)
 		{
-			_tileHidingUnder = Random.Next(_tiles.Count);
+			TileHidingUnder = Random.Next(_tiles.Count);
 		}
-		Position = _tiles[_tileHidingUnder].Center;
+		Position = _tiles[TileHidingUnder].Center;
 		Visible = true;
 	}
 
 	public void OnTileExposed()
 	{
-		_timer.Start();
+		if (_disabled) return;
+
+		Player.Stream = ScareSoundEffect;
+		Player.Play(2.64F);
+		_timer.Start(1);
+		_disabled = true;
 		_timer.Timeout += () =>
 		{
 			var tween = GetTree().CreateTween();
-			tween.TweenProperty(this, "modulate", new Color(0, 0, 0), 1.0);
+			tween.TweenProperty(this, "modulate", new Color(0, 0, 0, 0), 1.0);
 			tween.Finished += () => { Visible = false; };
 		};
 	}

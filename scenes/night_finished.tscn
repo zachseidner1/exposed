@@ -1,0 +1,134 @@
+[gd_scene load_steps=16 format=3 uid="uid://dw85i0u2r21fx"]
+
+[ext_resource type="FontFile" uid="uid://bapivjukjk0sp" path="res://assets/fonts/Mleitod Personal Use Only.ttf" id="1_tq1fi"]
+[ext_resource type="Script" path="res://scripts/night finished/NightFinished.cs" id="1_tqllm"]
+[ext_resource type="FontFile" uid="uid://2g1as66iwxo6" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="2_1pj4x"]
+[ext_resource type="Script" path="res://scripts/start menu/IconButton.cs" id="3_6x306"]
+[ext_resource type="Texture2D" uid="uid://ch8cbsl81w726" path="res://assets/images/selected_icon.png" id="4_ghspp"]
+[ext_resource type="Script" path="res://scripts/start menu/CursorTile.cs" id="5_5cq2m"]
+[ext_resource type="AudioStream" uid="uid://dvv2d6vcxtpoa" path="res://assets/audio/ceiling_tile_hang.wav" id="6_pymvl"]
+[ext_resource type="AudioStream" uid="uid://b6dir6y4fbxpf" path="res://assets/audio/ceiling_tile_fall.wav" id="7_p0opi"]
+[ext_resource type="AudioStream" uid="uid://dqtmmawm245qj" path="res://assets/audio/ceiling_tile_pickup.wav" id="8_prbod"]
+[ext_resource type="Shader" path="res://shaders/postProcessing.gdshader" id="9_wf58a"]
+[ext_resource type="AudioStream" uid="uid://dyxuklbtqsl8l" path="res://assets/audio/hover.wav" id="10_f1sf3"]
+[ext_resource type="AudioStream" uid="uid://1tsx777hxgq5" path="res://assets/audio/start_game.wav" id="11_qodae"]
+[ext_resource type="AudioStream" uid="uid://d0a0c1n2a200d" path="res://assets/audio/6am chimes.mp3" id="13_7rc2i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2e0dc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e31v4"]
+shader = ExtResource("9_wf58a")
+shader_parameter/size = Vector2(32, 28)
+
+[node name="NightFinished" type="Control" node_paths=PackedStringArray("PostProcessing", "Hour6", "Continue", "Quit", "MyCursorTile", "NightFinishedSoundEffect", "NextLevelSoundEffect")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tqllm")
+PostProcessing = NodePath("MarginContainer/PostProcessing")
+Hour6 = NodePath("MarginContainer/VBoxContainer/6AM")
+Continue = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Continue")
+Quit = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Quit")
+MyCursorTile = NodePath("MarginContainer/CursorTile")
+NightFinishedSoundEffect = NodePath("NightFinishedSoundEffect")
+NextLevelSoundEffect = NodePath("StartLevelSoundEffect")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="MarginContainer"]
+z_index = -10
+layout_mode = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="6AM" type="Label" parent="MarginContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_tq1fi")
+theme_override_font_sizes/font_size = 96
+text = "6 AM"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Continue" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("HoverSoundEffect")]
+z_index = 2
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("2_1pj4x")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/hover = SubResource("StyleBoxEmpty_2e0dc")
+text = "Continue"
+script = ExtResource("3_6x306")
+HoverSoundEffect = NodePath("../../../../HoverSoundEffect")
+IconTexture = ExtResource("4_ghspp")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("HoverSoundEffect")]
+z_index = 2
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("2_1pj4x")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/hover = SubResource("StyleBoxEmpty_2e0dc")
+text = "Quit"
+script = ExtResource("3_6x306")
+HoverSoundEffect = NodePath("../../../../HoverSoundEffect")
+IconTexture = ExtResource("4_ghspp")
+
+[node name="CursorTile" type="Polygon2D" parent="MarginContainer" groups=["tiles"]]
+z_index = 5
+position = Vector2(158, 255)
+color = Color(0.97, 0.97, 0.97, 1)
+polygon = PackedVector2Array(101.69, -1, 150.215, 40.365, 41.62, 40, 0, 0)
+script = ExtResource("5_5cq2m")
+TileHangSound = ExtResource("6_pymvl")
+TileFallSound = ExtResource("7_p0opi")
+TilePickupSound = ExtResource("8_prbod")
+
+[node name="PostProcessing" type="ColorRect" parent="MarginContainer"]
+z_index = 10
+z_as_relative = false
+material = SubResource("ShaderMaterial_e31v4")
+layout_mode = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HoverSoundEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_f1sf3")
+
+[node name="StartLevelSoundEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_qodae")
+
+[node name="NightFinishedSoundEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_7rc2i")
+
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/HBoxContainer/Continue" to="MarginContainer/VBoxContainer/HBoxContainer/Continue" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/HBoxContainer/Continue" to="MarginContainer/VBoxContainer/HBoxContainer/Continue" method="OnMouseExited"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Continue" to="." method="OnContinuePressed"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/HBoxContainer2/Quit" to="MarginContainer/VBoxContainer/HBoxContainer2/Quit" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/HBoxContainer2/Quit" to="MarginContainer/VBoxContainer/HBoxContainer2/Quit" method="OnMouseExited"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/Quit" to="." method="OnQuitPressed"]

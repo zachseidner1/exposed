@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 public partial class Phone : Sprite2D
 {
+	[Signal]
+	public delegate void PhoneCallFinishedEventHandler();
+
 	[Export]
 	public AudioStreamPlayer2D PhoneAudio;
 
@@ -18,6 +21,9 @@ public partial class Phone : Sprite2D
 
 	[Export]
 	public AudioStream PhoneCall;
+
+	[Export]
+	public AudioStream PhoneHangup;
 
 	private Timer _ringTimer;
 
@@ -80,6 +86,11 @@ public partial class Phone : Sprite2D
 			PhoneAudio.Stream = PhoneCall;
 			PhoneAudio.VolumeDb = 5;
 			PhoneAudio.Play();
+			PhoneAudio.Finished += () =>
+			{
+				EmitSignal(SignalName.PhoneCallFinished);
+				PhoneAudio.QueueFree();
+			};
 		};
 	}
 }
