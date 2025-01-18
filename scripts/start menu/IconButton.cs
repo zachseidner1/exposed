@@ -3,6 +3,10 @@ using System;
 
 public partial class IconButton : Button
 {
+
+	[Export]
+	public AudioStreamPlayer HoverSoundEffect;
+
 	[Export]
 	public Texture2D IconTexture;
 	// Called when the node enters the scene tree for the first time.
@@ -13,6 +17,7 @@ public partial class IconButton : Button
 	private void OnMouseEntered()
 	{
 		Icon = IconTexture;
+		HoverSoundEffect.Play();
 	}
 
 	private void OnMouseExited()

@@ -25,9 +25,12 @@ public partial class Cat : Sprite2D
 
 	private Tween _tween;
 
-	private Texture2D _jumping;
-	private Texture2D _falling;
-	private Texture2D _sitting;
+	[Export]
+	public Texture2D Jumping;
+	[Export]
+	private Texture2D Falling;
+	[Export]
+	private Texture2D Sitting;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -37,9 +40,6 @@ public partial class Cat : Sprite2D
 			OneShot = true
 		};
 		AddChild(_jumpTimer);
-		_sitting = GD.Load<Texture2D>("res://assets/cat_sitting.png");
-		_jumping = GD.Load<Texture2D>("res://assets/cat_jumping.png");
-		_falling = GD.Load<Texture2D>("res://assets/cat_falling.png");
 
 		_jumpTimer.Timeout += Jump;
 
@@ -59,7 +59,7 @@ public partial class Cat : Sprite2D
 	private void Jump()
 	{
 		CatStatus = CatState.Jumping;
-		Texture = _jumping;
+		Texture = Jumping;
 
 		int tileToJumpTo = Random.Next(_tiles.Count);
 		while (_tiles[tileToJumpTo].TileStatus != CeilingTile.TileState.Stable)
@@ -93,13 +93,13 @@ public partial class Cat : Sprite2D
 		CatStatus = CatState.Falling;
 		_tween?.Kill();
 		_tween = GetTree().CreateTween();
-		Texture = _falling;
+		Texture = Falling;
 		_tween.TweenMethod(
 			Callable.From((Vector2 pos) => Position = pos),
 			Position, new Vector2(Math.Clamp(Position.X, 144, 456), 370), 1.0f);
 		_tween.Finished += () =>
 		{
-			Texture = _sitting;
+			Texture = Sitting;
 		};
 		_jumpTimer.Start(GetNextJumpTime());
 	}

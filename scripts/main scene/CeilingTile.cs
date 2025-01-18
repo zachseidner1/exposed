@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.ObjectModel;
+using System.Data.SqlTypes;
 using System.Linq;
 
 
@@ -18,6 +19,17 @@ public partial class CeilingTile : Polygon2D
 	public Tween MyTween;
 
 	private Timer _fallTimer;
+
+	private AudioStreamPlayer2D _player;
+
+	[Export]
+	public AudioStream TileHangSound;
+
+	[Export]
+	public AudioStream TileFallSound;
+
+	[Export]
+	public AudioStream TilePickupSound;
 
 	/// <summary>
 	/// Signal ran whenever a ceiling tile falls
@@ -45,11 +57,16 @@ public partial class CeilingTile : Polygon2D
 	public override void _Ready()
 	{
 		// Initialize timer
-		_fallTimer = new();
+		_fallTimer = new()
+		{
+			OneShot = true
+		};
 		AddChild(_fallTimer);
 		_fallTimer.Timeout += () => FallTile();
 		var polygonXs = Polygon.Select((vert) => vert.X + Position.X);
 		var polygonYs = Polygon.Select((vert) => vert.Y + Position.Y);
+		_player = new();
+		AddChild(_player);
 
 		_bottomLeftPosition = new(polygonXs.Min(), polygonYs.Max());
 		_topRightPosition = new(polygonXs.Max(), polygonYs.Min());
@@ -102,6 +119,9 @@ public partial class CeilingTile : Polygon2D
 
 	protected void TweenTileHang(Action after)
 	{
+		_player.Stream = TileHangSound;
+		_player.Play();
+
 		MyTween?.Kill();
 		MyTween = GetTree().CreateTween();
 		MyTween.TweenMethod(
@@ -132,6 +152,9 @@ public partial class CeilingTile : Polygon2D
 
 	protected void TweenTilePickup(Action after)
 	{
+		_player.Stream = TilePickupSound;
+		_player.Play();
+
 		ShaderMaterial shader = (ShaderMaterial)Material;
 		MyTween?.Kill();
 		MyTween = GetTree().CreateTween();
@@ -158,6 +181,15 @@ public partial class CeilingTile : Polygon2D
 
 	protected void TweenTileFall(Action after)
 	{
+		// Boost tile fall sound audio db
+		_player.Stream = TileFallSound;
+		_player.VolumeDb = 5;
+		_player.Play();
+		_player.Finished += () =>
+		{
+			_player.VolumeDb = 0;
+		};
+
 		MyTween?.Kill();
 		MyTween = GetTree().CreateTween();
 		var fallenPosition = new Vector2(Position.X, 600);
