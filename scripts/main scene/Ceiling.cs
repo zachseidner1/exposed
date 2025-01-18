@@ -60,7 +60,6 @@ public partial class Ceiling : Node2D
 		{
 			tileToHang = Random.Next(_tiles.Count);
 		}
-		timer.Start(GetNextHangDelay());
 	}
 
 	private double GetNextHangDelay()
