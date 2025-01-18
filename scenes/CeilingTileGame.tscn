@@ -1,6 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://dksyagnnu26fe"]
+[gd_scene load_steps=29 format=3 uid="uid://dksyagnnu26fe"]
 
-[ext_resource type="Script" path="res://scripts/main scene/Ceiling.cs" id="2_ujwrd"]
+[ext_resource type="Script" path="res://scripts/main scene/GameManager.cs" id="1_6apfe"]
 [ext_resource type="Script" path="res://scripts/main scene/CeilingTile.cs" id="3_0ec5c"]
 [ext_resource type="Shader" path="res://shaders/CeilingTile.gdshader" id="4_4epfi"]
 [ext_resource type="AudioStream" uid="uid://dvv2d6vcxtpoa" path="res://assets/audio/ceiling_tile_hang.wav" id="4_pta5s"]
@@ -16,6 +16,16 @@
 [ext_resource type="Texture2D" uid="uid://c0m4sjg7sn6me" path="res://assets/images/phone.png" id="11_psfmx"]
 [ext_resource type="Texture2D" uid="uid://bwijimtsp135x" path="res://assets/images/cat_jumping.png" id="12_qrbcw"]
 [ext_resource type="Texture2D" uid="uid://bu72q5ybma6df" path="res://assets/images/cat_falling.png" id="13_rx848"]
+[ext_resource type="Script" path="res://scripts/Phone.cs" id="15_j8aa6"]
+[ext_resource type="AudioStream" uid="uid://cuilmwvs383jv" path="res://assets/audio/phone-ring.mp3" id="16_361c0"]
+[ext_resource type="Texture2D" uid="uid://dqnljmo86vi0o" path="res://assets/images/sound_wave.png" id="16_tl7jr"]
+[ext_resource type="AudioStream" uid="uid://bu0g8xyegcde" path="res://assets/audio/phone-pickup.mp3" id="17_5ungf"]
+[ext_resource type="Texture2D" uid="uid://yjfveugnxuhe" path="res://assets/images/eyes.png" id="17_d040r"]
+[ext_resource type="Script" path="res://scripts/SoundWave.cs" id="17_vofxu"]
+[ext_resource type="AudioStream" uid="uid://byhoxc2t2ycas" path="res://assets/audio/phonecall.wav" id="18_sgjen"]
+[ext_resource type="Script" path="res://scripts/main scene/Eyes.cs" id="18_uf4ex"]
+[ext_resource type="AudioStream" uid="uid://dxuwmkebf1bn2" path="res://assets/audio/Backrooms.wav" id="24_8ecaf"]
+[ext_resource type="Script" path="res://utils/LoopingAudio.cs" id="25_w2ock"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o0ldg"]
 shader = ExtResource("4_4epfi")
@@ -31,11 +41,18 @@ shader_parameter/zDegrees = 360.0
 shader = ExtResource("5_qrkvo")
 shader_parameter/size = Vector2(32, 28)
 
-[node name="Main" type="Sprite2D"]
+[node name="Main" type="Sprite2D" node_paths=PackedStringArray("Bat", "Eyes", "Cat", "Phone", "TimeLabel", "CeilingHangTimer")]
 texture_filter = 1
 centered = false
+script = ExtResource("1_6apfe")
+Bat = NodePath("Bat")
+Eyes = NodePath("Eyes")
+Cat = NodePath("Cat")
+Phone = NodePath("Phone")
+TimeLabel = NodePath("CanvasLayer/Screen/MarginContainer/TimeLabel")
+CeilingHangTimer = NodePath("TileHangTimer")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="TileHangTimer" type="Timer" parent="."]
 wait_time = 3.0
 
 [node name="OtherTiles" type="Node2D" parent="."]
@@ -112,11 +129,7 @@ position = Vector2(0, 150.84)
 texture = ExtResource("6_xdl7v")
 centered = false
 
-[node name="Ceiling" type="Node2D" parent="." node_paths=PackedStringArray("Bat", "TimeLabel")]
-script = ExtResource("2_ujwrd")
-Bat = NodePath("../Bat")
-TimeLabel = NodePath("../CanvasLayer/Screen/MarginContainer/TimeLabel")
-CeilingDifficulty = 10
+[node name="Ceiling" type="Node2D" parent="."]
 
 [node name="tile1" type="Polygon2D" parent="Ceiling" groups=["tiles"]]
 position = Vector2(-43.175, 1)
@@ -274,6 +287,7 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Cat" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(317, 380)
 texture = ExtResource("6_45an0")
 offset = Vector2(15.83, 70.635)
@@ -284,10 +298,25 @@ Jumping = ExtResource("12_qrbcw")
 Falling = ExtResource("13_rx848")
 Sitting = ExtResource("6_45an0")
 
-[node name="Phone" type="Sprite2D" parent="."]
+[node name="Phone" type="Sprite2D" parent="." node_paths=PackedStringArray("PhoneAudio", "MySoundWave")]
 texture_filter = 1
 position = Vector2(67, 357)
 texture = ExtResource("11_psfmx")
+script = ExtResource("15_j8aa6")
+PhoneAudio = NodePath("PhoneAudio")
+MySoundWave = NodePath("SoundWave")
+PhoneRing = ExtResource("16_361c0")
+PhonePickup = ExtResource("17_5ungf")
+PhoneCall = ExtResource("18_sgjen")
+
+[node name="PhoneAudio" type="AudioStreamPlayer2D" parent="Phone"]
+
+[node name="SoundWave" type="Sprite2D" parent="Phone"]
+visible = false
+position = Vector2(46, -7)
+scale = Vector2(1.995, 1.995)
+texture = ExtResource("16_tl7jr")
+script = ExtResource("17_vofxu")
 
 [node name="Bat" type="Sprite2D" parent="."]
 visible = false
@@ -296,3 +325,16 @@ position = Vector2(338, 218)
 scale = Vector2(11.685, 11.685)
 texture = ExtResource("8_lnddi")
 script = ExtResource("9_50trw")
+
+[node name="Eyes" type="Sprite2D" parent="."]
+visible = false
+z_index = -1
+position = Vector2(298, 108)
+texture = ExtResource("17_d040r")
+script = ExtResource("18_uf4ex")
+
+[node name="AmbientNoise" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("24_8ecaf")
+volume_db = -5.0
+autoplay = true
+script = ExtResource("25_w2ock")

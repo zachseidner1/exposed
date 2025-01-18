@@ -34,6 +34,7 @@ public partial class Cat : Sprite2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		Visible = false;
 		_tiles = GetTree().GetNodesInGroup("tiles").Cast<CeilingTile>().ToList();
 		_jumpTimer = new()
 		{
@@ -42,7 +43,14 @@ public partial class Cat : Sprite2D
 		AddChild(_jumpTimer);
 
 		_jumpTimer.Timeout += Jump;
+	}
 
+	public void StartCatAtDifficulty(int difficulty)
+	{
+		CatDifficulty = difficulty;
+		Visible = true;
+		Texture = Sitting;
+		Position = new(317, 380);
 		_jumpTimer.Start(GetNextJumpTime());
 	}
 

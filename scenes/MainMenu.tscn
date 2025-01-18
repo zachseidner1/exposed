@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dph62voqtusxq"]
+[gd_scene load_steps=17 format=3 uid="uid://dph62voqtusxq"]
 
 [ext_resource type="Script" path="res://scripts/start menu/MainMenu.cs" id="1_8ptep"]
 [ext_resource type="FontFile" uid="uid://bapivjukjk0sp" path="res://assets/fonts/Mleitod Personal Use Only.ttf" id="1_ugm3c"]
@@ -7,9 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://ch8cbsl81w726" path="res://assets/images/selected_icon.png" id="3_xnb8d"]
 [ext_resource type="Script" path="res://scripts/start menu/CursorTile.cs" id="3_xwhpy"]
 [ext_resource type="Script" path="res://scripts/start menu/IconButton.cs" id="4_meem4"]
+[ext_resource type="AudioStream" uid="uid://dvv2d6vcxtpoa" path="res://assets/audio/ceiling_tile_hang.wav" id="7_7dvnx"]
 [ext_resource type="AudioStream" uid="uid://cni27mki3yvsm" path="res://assets/audio/z3r0-8bitSyndrome.wav" id="8_0v1bp"]
+[ext_resource type="AudioStream" uid="uid://b6dir6y4fbxpf" path="res://assets/audio/ceiling_tile_fall.wav" id="8_rkdag"]
+[ext_resource type="AudioStream" uid="uid://dqtmmawm245qj" path="res://assets/audio/ceiling_tile_pickup.wav" id="9_umfmc"]
 [ext_resource type="AudioStream" uid="uid://1tsx777hxgq5" path="res://assets/audio/start_game.wav" id="10_3srop"]
 [ext_resource type="AudioStream" uid="uid://dyxuklbtqsl8l" path="res://assets/audio/hover.wav" id="10_dbbc2"]
+[ext_resource type="Script" path="res://utils/LoopingAudio.cs" id="13_v7p1t"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rmub8"]
 
@@ -78,6 +82,9 @@ position = Vector2(158, 255)
 color = Color(0.97, 0.97, 0.97, 1)
 polygon = PackedVector2Array(101.69, -1, 150.215, 40.365, 41.62, 40, 0, 0)
 script = ExtResource("3_xwhpy")
+TileHangSound = ExtResource("7_7dvnx")
+TileFallSound = ExtResource("8_rkdag")
+TilePickupSound = ExtResource("9_umfmc")
 
 [node name="Background" type="ColorRect" parent="."]
 z_index = -10
@@ -98,7 +105,9 @@ stream = ExtResource("10_3srop")
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_0v1bp")
+volume_db = -5.0
 autoplay = true
+script = ExtResource("13_v7p1t")
 
 [node name="HoverSoundEffect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_dbbc2")

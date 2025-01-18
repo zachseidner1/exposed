@@ -5,7 +5,7 @@ I mean, yar stuck in this abandon building, working the night shift.
 And this random dude from Craigslist is paying ya an obscene amount of money to 
 do so (I mean really, I'm probably paying ya too much). But hey, that's why I 
 left this message for ya, so ya know what to expect around here. So this old 
-dump has got some problems with the ceiling, these tiles keep falling out man.
+dump has got some problems with the ceiling, these tiles, they keep falling out man.
 And that's why you're here. Whenever a tile falls out, all you gotta do is click
 on the gap to repair it. Got that? It's a simple job really.  
 
@@ -14,7 +14,7 @@ frankly I don't want to know. No matter what you see up there, you gotta just
 keep patching it up, just don't let the building fall apart for the night and 
 someone will take care of it in the morning. 
 
-Alright, thanks man,
+Alright, thanks man, take care.
 
 
 SFX:
