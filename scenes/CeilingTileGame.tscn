@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dksyagnnu26fe"]
+[gd_scene load_steps=35 format=3 uid="uid://dksyagnnu26fe"]
 
 [ext_resource type="Script" path="res://scripts/main scene/GameManager.cs" id="1_6apfe"]
 [ext_resource type="Script" path="res://scripts/main scene/CeilingTile.cs" id="3_0ec5c"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://c0m4sjg7sn6me" path="res://assets/images/phone.png" id="11_psfmx"]
 [ext_resource type="Texture2D" uid="uid://bwijimtsp135x" path="res://assets/images/cat_jumping.png" id="12_qrbcw"]
 [ext_resource type="Texture2D" uid="uid://bu72q5ybma6df" path="res://assets/images/cat_falling.png" id="13_rx848"]
+[ext_resource type="AudioStream" uid="uid://mjjd1gsbv4mq" path="res://assets/audio/Cat meow.mp3" id="15_cj5g8"]
 [ext_resource type="Script" path="res://scripts/Phone.cs" id="15_j8aa6"]
 [ext_resource type="AudioStream" uid="uid://cuilmwvs383jv" path="res://assets/audio/phone-ring.mp3" id="16_361c0"]
 [ext_resource type="Texture2D" uid="uid://dqnljmo86vi0o" path="res://assets/images/sound_wave.png" id="16_tl7jr"]
@@ -25,9 +26,12 @@
 [ext_resource type="Script" path="res://scripts/SoundWave.cs" id="17_vofxu"]
 [ext_resource type="AudioStream" uid="uid://byhoxc2t2ycas" path="res://assets/audio/phonecall.wav" id="18_sgjen"]
 [ext_resource type="Script" path="res://scripts/main scene/Eyes.cs" id="18_uf4ex"]
+[ext_resource type="AudioStream" uid="uid://bimk4odancub0" path="res://assets/audio/night2.wav" id="20_swm2o"]
+[ext_resource type="AudioStream" uid="uid://dq6be685uem41" path="res://assets/audio/phone-hang-up.mp3" id="21_essen"]
 [ext_resource type="AudioStream" uid="uid://dxuwmkebf1bn2" path="res://assets/audio/Backrooms.wav" id="24_8ecaf"]
 [ext_resource type="Script" path="res://utils/LoopingAudio.cs" id="25_w2ock"]
 [ext_resource type="AudioStream" uid="uid://n8n4w0kldfsp" path="res://assets/audio/scare.mp3" id="26_10vn5"]
+[ext_resource type="AudioStream" uid="uid://da51ahglr0tl5" path="res://assets/audio/bat scare.wav" id="27_nol4a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o0ldg"]
 shader = ExtResource("4_4epfi")
@@ -279,7 +283,7 @@ theme_override_fonts/font = ExtResource("5_svxjy")
 theme_override_font_sizes/font_size = 48
 text = "6 AM"
 script = ExtResource("9_7lso6")
-SecondsPerNight = 5
+SecondsPerNight = 40
 
 [node name="PostProcessing" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_54bqy")
@@ -290,7 +294,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Cat" type="Sprite2D" parent="."]
+[node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("MeowPlayer")]
 visible = false
 position = Vector2(317, 380)
 texture = ExtResource("6_45an0")
@@ -301,6 +305,10 @@ CatDifficulty = 5
 Jumping = ExtResource("12_qrbcw")
 Falling = ExtResource("13_rx848")
 Sitting = ExtResource("6_45an0")
+MeowPlayer = NodePath("MeowPlayer")
+
+[node name="MeowPlayer" type="AudioStreamPlayer2D" parent="Cat"]
+stream = ExtResource("15_cj5g8")
 
 [node name="Phone" type="Sprite2D" parent="." node_paths=PackedStringArray("PhoneAudio", "MySoundWave")]
 texture_filter = 1
@@ -311,7 +319,9 @@ PhoneAudio = NodePath("PhoneAudio")
 MySoundWave = NodePath("SoundWave")
 PhoneRing = ExtResource("16_361c0")
 PhonePickup = ExtResource("17_5ungf")
-PhoneCall = ExtResource("18_sgjen")
+Night1PhoneCall = ExtResource("18_sgjen")
+Night2PhoneCall = ExtResource("20_swm2o")
+PhoneHangup = ExtResource("21_essen")
 
 [node name="PhoneAudio" type="AudioStreamPlayer2D" parent="Phone"]
 
@@ -329,6 +339,7 @@ position = Vector2(338, 218)
 scale = Vector2(11.685, 11.685)
 texture = ExtResource("8_lnddi")
 script = ExtResource("9_50trw")
+BatScare = ExtResource("27_nol4a")
 
 [node name="Eyes" type="Sprite2D" parent="." node_paths=PackedStringArray("Player")]
 visible = false
@@ -348,4 +359,5 @@ script = ExtResource("25_w2ock")
 [node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
 
 [connection signal="Hour3" from="CanvasLayer/Screen/MarginContainer/TimeLabel" to="." method="OnHour3Reached"]
+[connection signal="Hour3" from="CanvasLayer/Screen/MarginContainer/TimeLabel" to="Cat" method="OnHour3Reached"]
 [connection signal="PhoneCallFinished" from="Phone" to="." method="OnPhoneCallFinished"]

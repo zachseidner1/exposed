@@ -44,6 +44,14 @@ public partial class GameManager : Node2D
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 		InitGameObjects();
 		BeginPhoneLevel();
+		switch (Saving.GetLevel())
+		{
+			case 1:
+				break;
+			case 2:
+				StartCeilingAtDifficulty(9);
+				break;
+		}
 	}
 
 	private void InitGameObjects()
@@ -79,6 +87,7 @@ public partial class GameManager : Node2D
 		{
 			Eyes.OnTileExposed();
 		}
+		CeilingHangTimer.Start(GetNextHangDelay());
 	}
 
 	private double GetNextHangDelay()
@@ -91,6 +100,8 @@ public partial class GameManager : Node2D
 		{
 			hangTime = Random.Next(minHangTime, maxHangTime);
 		}
+
+		GD.Print("Chosen delay: " + Math.Clamp(hangTime, 0.05, 5));
 		return Math.Clamp(hangTime, 0.05, 5);
 	}
 
@@ -101,14 +112,47 @@ public partial class GameManager : Node2D
 
 	private void OnPhoneCallFinished()
 	{
+		if (Saving.GetLevel() == 1)
+		{
+			StartCeilingAtDifficulty(1);
+		}
+	}
+
+	private void StartCeilingAtDifficulty(int difficulty)
+	{
+		CeilingDifficulty = difficulty;
 		CeilingHangTimer.Start(GetNextHangDelay());
 	}
 
 	private void OnHour3Reached()
 	{
-		Eyes.HideUnderTile();
-		CeilingDifficulty = 1;
-		CeilingHangTimer.Start(GetNextHangDelay());
+		switch (Saving.GetLevel())
+		{
+			case 1:
+				Eyes.HideUnderTile();
+				CeilingDifficulty = 1;
+				CeilingHangTimer.Start(GetNextHangDelay());
+				break;
+		}
+	}
+	private void OnHour4Reached()
+	{
+		switch (Saving.GetLevel())
+		{
+			case 1:
+				CeilingDifficulty = 5;
+				break;
+		}
+	}
+
+	private void OnHour5Reached()
+	{
+		switch (Saving.GetLevel())
+		{
+			case 1:
+				CeilingDifficulty = 9;
+				break;
+		}
 	}
 
 }

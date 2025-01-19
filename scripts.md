@@ -16,6 +16,15 @@ someone will take care of it in the morning.
 
 Alright, thanks man, take care.
 
+## Level 2
+
+Uh, hey there, it's me again. How did last night go for ya, anything up there I 
+should know about? Well, even if you did see anything, not like you can tell me
+now, since this is a recording, haha. Anyway, sometimes wild animals wonder into
+this building, but don't worry, it's not like they have rabies or anything, alright?
+It's just, for some reason they all seem to be attracted to the ceiling, like there's
+a treat up there or something. Just be careful not to let them tamper with it, ok?
+
 
 SFX:
 Ceiling tile hang candidate:

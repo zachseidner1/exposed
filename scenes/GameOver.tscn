@@ -1,0 +1,134 @@
+[gd_scene load_steps=16 format=3 uid="uid://d1djhe7wamxqa"]
+
+[ext_resource type="Script" path="res://scripts/night finished/NightFinished.cs" id="1_7ntv1"]
+[ext_resource type="FontFile" uid="uid://bapivjukjk0sp" path="res://assets/fonts/Mleitod Personal Use Only.ttf" id="2_bk22p"]
+[ext_resource type="FontFile" uid="uid://2g1as66iwxo6" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="3_vapdq"]
+[ext_resource type="Script" path="res://scripts/start menu/IconButton.cs" id="4_v1qar"]
+[ext_resource type="Texture2D" uid="uid://ch8cbsl81w726" path="res://assets/images/selected_icon.png" id="5_75w05"]
+[ext_resource type="Script" path="res://scripts/start menu/CursorTile.cs" id="6_uljyh"]
+[ext_resource type="AudioStream" uid="uid://dvv2d6vcxtpoa" path="res://assets/audio/ceiling_tile_hang.wav" id="7_7kam2"]
+[ext_resource type="AudioStream" uid="uid://b6dir6y4fbxpf" path="res://assets/audio/ceiling_tile_fall.wav" id="8_0o081"]
+[ext_resource type="AudioStream" uid="uid://dqtmmawm245qj" path="res://assets/audio/ceiling_tile_pickup.wav" id="9_mfiek"]
+[ext_resource type="Shader" path="res://shaders/postProcessing.gdshader" id="10_81u54"]
+[ext_resource type="AudioStream" uid="uid://dyxuklbtqsl8l" path="res://assets/audio/hover.wav" id="11_wcthy"]
+[ext_resource type="AudioStream" uid="uid://1tsx777hxgq5" path="res://assets/audio/start_game.wav" id="12_ocdii"]
+[ext_resource type="AudioStream" uid="uid://h0qxh5cbvr60" path="res://assets/audio/game over.mp3" id="13_x3d62"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2e0dc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e31v4"]
+shader = ExtResource("10_81u54")
+shader_parameter/size = Vector2(32, 28)
+
+[node name="GameOver" type="Control" node_paths=PackedStringArray("PostProcessing", "Hour6", "Continue", "Quit", "MyCursorTile", "OpeningSoundEffect", "NextLevelSoundEffect")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7ntv1")
+PostProcessing = NodePath("MarginContainer/PostProcessing")
+Hour6 = NodePath("MarginContainer/VBoxContainer/GameOver")
+Continue = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Retry")
+Quit = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Quit")
+MyCursorTile = NodePath("MarginContainer/CursorTile")
+OpeningSoundEffect = NodePath("GameOverSoundEffect")
+NextLevelSoundEffect = NodePath("StartLevelSoundEffect")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="MarginContainer"]
+z_index = -10
+layout_mode = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="GameOver" type="Label" parent="MarginContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_bk22p")
+theme_override_font_sizes/font_size = 72
+text = "Game over"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Retry" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("HoverSoundEffect")]
+z_index = 2
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("3_vapdq")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/hover = SubResource("StyleBoxEmpty_2e0dc")
+text = "Retry"
+script = ExtResource("4_v1qar")
+HoverSoundEffect = NodePath("../../../../HoverSoundEffect")
+IconTexture = ExtResource("5_75w05")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("HoverSoundEffect")]
+z_index = 2
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("3_vapdq")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/hover = SubResource("StyleBoxEmpty_2e0dc")
+text = "Quit"
+script = ExtResource("4_v1qar")
+HoverSoundEffect = NodePath("../../../../HoverSoundEffect")
+IconTexture = ExtResource("5_75w05")
+
+[node name="CursorTile" type="Polygon2D" parent="MarginContainer" groups=["tiles"]]
+z_index = 5
+position = Vector2(158, 255)
+color = Color(0.97, 0.97, 0.97, 1)
+polygon = PackedVector2Array(101.69, -1, 150.215, 40.365, 41.62, 40, 0, 0)
+script = ExtResource("6_uljyh")
+TileHangSound = ExtResource("7_7kam2")
+TileFallSound = ExtResource("8_0o081")
+TilePickupSound = ExtResource("9_mfiek")
+
+[node name="PostProcessing" type="ColorRect" parent="MarginContainer"]
+z_index = 10
+z_as_relative = false
+material = SubResource("ShaderMaterial_e31v4")
+layout_mode = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HoverSoundEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_wcthy")
+
+[node name="StartLevelSoundEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_ocdii")
+
+[node name="GameOverSoundEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_x3d62")
+
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/HBoxContainer/Retry" to="MarginContainer/VBoxContainer/HBoxContainer/Retry" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/HBoxContainer/Retry" to="MarginContainer/VBoxContainer/HBoxContainer/Retry" method="OnMouseExited"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Retry" to="." method="OnRetryPressed"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/HBoxContainer2/Quit" to="MarginContainer/VBoxContainer/HBoxContainer2/Quit" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/HBoxContainer2/Quit" to="MarginContainer/VBoxContainer/HBoxContainer2/Quit" method="OnMouseExited"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/Quit" to="." method="OnQuitPressed"]

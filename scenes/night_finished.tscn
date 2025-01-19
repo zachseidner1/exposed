@@ -20,7 +20,7 @@
 shader = ExtResource("9_wf58a")
 shader_parameter/size = Vector2(32, 28)
 
-[node name="NightFinished" type="Control" node_paths=PackedStringArray("PostProcessing", "Hour6", "Continue", "Quit", "MyCursorTile", "NightFinishedSoundEffect", "NextLevelSoundEffect")]
+[node name="NightFinished" type="Control" node_paths=PackedStringArray("PostProcessing", "Hour6", "Continue", "Quit", "MyCursorTile", "OpeningSoundEffect", "NextLevelSoundEffect")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,7 +33,7 @@ Hour6 = NodePath("MarginContainer/VBoxContainer/6AM")
 Continue = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Continue")
 Quit = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Quit")
 MyCursorTile = NodePath("MarginContainer/CursorTile")
-NightFinishedSoundEffect = NodePath("NightFinishedSoundEffect")
+OpeningSoundEffect = NodePath("NightFinishedSoundEffect")
 NextLevelSoundEffect = NodePath("StartLevelSoundEffect")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

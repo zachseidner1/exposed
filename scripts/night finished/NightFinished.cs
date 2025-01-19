@@ -20,7 +20,7 @@ public partial class NightFinished : Control
 	public CursorTile MyCursorTile;
 
 	[Export]
-	public AudioStreamPlayer NightFinishedSoundEffect;
+	public AudioStreamPlayer OpeningSoundEffect;
 
 	[Export]
 	public AudioStreamPlayer NextLevelSoundEffect;
@@ -33,11 +33,9 @@ public partial class NightFinished : Control
 		timer.Start(0.5);
 		timer.Timeout += () =>
 		{
-			NightFinishedSoundEffect.Play();
+			OpeningSoundEffect.Play();
 		};
-		// NightFinishedSoundEffect.Play();
 		RepopulateScene();
-		Saving.WriteLevel(Saving.GetLevel() + 1);
 	}
 	/// <summary>
 	/// Make all items in scene invisible, and remove post processing
@@ -75,7 +73,17 @@ public partial class NightFinished : Control
 
 	private void OnContinuePressed()
 	{
-		GD.Print("Help me");
+		Saving.WriteLevel(Saving.GetLevel() + 1);
+		OnRetryPressed();
+	}
+
+	private void OnQuitPressed()
+	{
+		GetTree().Quit();
+	}
+
+	private void OnRetryPressed()
+	{
 		NextLevelSoundEffect.Play();
 
 		Tween tween = GetTree().CreateTween();
@@ -83,16 +91,9 @@ public partial class NightFinished : Control
 			.SetTrans(Tween.TransitionType.Cubic)
 			.SetEase(Tween.EaseType.Out);
 
-		// TODO increment level counter 
-
 		tween.Finished += () =>
 		{
 			GetTree().ChangeSceneToFile("res://scenes/CeilingTileGame.tscn");
 		};
-	}
-
-	private void OnQuitPressed()
-	{
-		GetTree().Quit();
 	}
 }

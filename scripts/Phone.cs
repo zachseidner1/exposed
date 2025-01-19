@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 
 public partial class Phone : Sprite2D
@@ -20,7 +21,10 @@ public partial class Phone : Sprite2D
 	public AudioStream PhonePickup;
 
 	[Export]
-	public AudioStream PhoneCall;
+	public AudioStream Night1PhoneCall;
+
+	[Export]
+	public AudioStream Night2PhoneCall;
 
 	[Export]
 	public AudioStream PhoneHangup;
@@ -83,7 +87,8 @@ public partial class Phone : Sprite2D
 		PhoneAudio.Play();
 		PhoneAudio.Finished += () =>
 		{
-			PhoneAudio.Stream = PhoneCall;
+			PhoneAudio.Stream = Saving.GetLevel() == 2 ? Night2PhoneCall : Night1PhoneCall;
+			GD.Print("saving level: " + Saving.GetLevel());
 			PhoneAudio.VolumeDb = 5;
 			PhoneAudio.Play();
 			PhoneAudio.Finished += () =>

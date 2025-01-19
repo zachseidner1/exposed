@@ -13,11 +13,12 @@ public partial class Cat : Sprite2D
 		Sitting,
 		Jumping,
 		Falling,
+		Disabled,
 	}
 
 	[Export(PropertyHint.Range, "0,20,1")]
 	public int CatDifficulty { get; set; } = 1;
-	public CatState CatStatus = CatState.Sitting;
+	public CatState CatStatus = CatState.Disabled;
 
 	private List<CeilingTile> _tiles = new();
 
@@ -31,6 +32,9 @@ public partial class Cat : Sprite2D
 	private Texture2D Falling;
 	[Export]
 	private Texture2D Sitting;
+
+	[Export]
+	public AudioStreamPlayer2D MeowPlayer;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -43,15 +47,25 @@ public partial class Cat : Sprite2D
 		AddChild(_jumpTimer);
 
 		_jumpTimer.Timeout += Jump;
+
+		if (Saving.GetLevel() > 1)
+		{
+			InitSitting();
+		}
 	}
 
 	public void StartCatAtDifficulty(int difficulty)
 	{
 		CatDifficulty = difficulty;
-		Visible = true;
-		Texture = Sitting;
 		Position = new(317, 380);
 		_jumpTimer.Start(GetNextJumpTime());
+	}
+
+	private void InitSitting()
+	{
+		Visible = true;
+		Texture = Sitting;
+		CatStatus = CatState.Sitting;
 	}
 
 	private double GetNextJumpTime()
@@ -131,6 +145,18 @@ public partial class Cat : Sprite2D
 		if (CatStatus == CatState.Jumping)
 		{
 			Fall();
+		}
+		else if (CatStatus == CatState.Sitting)
+		{
+			MeowPlayer.Play(3.19F);
+		}
+	}
+
+	private void OnHour3Reached()
+	{
+		if (Saving.GetLevel() == 2)
+		{
+			StartCatAtDifficulty(5);
 		}
 	}
 
