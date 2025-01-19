@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dksyagnnu26fe"]
+[gd_scene load_steps=36 format=3 uid="uid://dksyagnnu26fe"]
 
 [ext_resource type="Script" path="res://scripts/main scene/GameManager.cs" id="1_6apfe"]
 [ext_resource type="Script" path="res://scripts/main scene/CeilingTile.cs" id="3_0ec5c"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://bu72q5ybma6df" path="res://assets/images/cat_falling.png" id="13_rx848"]
 [ext_resource type="AudioStream" uid="uid://mjjd1gsbv4mq" path="res://assets/audio/Cat meow.mp3" id="15_cj5g8"]
 [ext_resource type="Script" path="res://scripts/Phone.cs" id="15_j8aa6"]
+[ext_resource type="AudioStream" uid="uid://cx64v1kracpq6" path="res://assets/audio/cat growl.wav" id="16_35b1c"]
 [ext_resource type="AudioStream" uid="uid://cuilmwvs383jv" path="res://assets/audio/phone-ring.mp3" id="16_361c0"]
 [ext_resource type="Texture2D" uid="uid://dqnljmo86vi0o" path="res://assets/images/sound_wave.png" id="16_tl7jr"]
 [ext_resource type="AudioStream" uid="uid://bu0g8xyegcde" path="res://assets/audio/phone-pickup.mp3" id="17_5ungf"]
@@ -294,8 +295,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("MeowPlayer")]
-visible = false
+[node name="Cat" type="Sprite2D" parent="." node_paths=PackedStringArray("MeowPlayer", "MeowLabel")]
 position = Vector2(317, 380)
 texture = ExtResource("6_45an0")
 offset = Vector2(15.83, 70.635)
@@ -306,9 +306,22 @@ Jumping = ExtResource("12_qrbcw")
 Falling = ExtResource("13_rx848")
 Sitting = ExtResource("6_45an0")
 MeowPlayer = NodePath("MeowPlayer")
+CatMeow = ExtResource("15_cj5g8")
+CatGrowl = ExtResource("16_35b1c")
+MeowLabel = NodePath("MeowLabel")
 
 [node name="MeowPlayer" type="AudioStreamPlayer2D" parent="Cat"]
 stream = ExtResource("15_cj5g8")
+
+[node name="MeowLabel" type="Label" parent="Cat"]
+visible = false
+offset_left = -48.0
+offset_right = 65.0
+offset_bottom = 23.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_svxjy")
+theme_override_font_sizes/font_size = 24
+text = "+2 meows"
 
 [node name="Phone" type="Sprite2D" parent="." node_paths=PackedStringArray("PhoneAudio", "MySoundWave")]
 texture_filter = 1

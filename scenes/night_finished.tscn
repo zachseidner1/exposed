@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://dw85i0u2r21fx"]
+[gd_scene load_steps=17 format=3 uid="uid://dw85i0u2r21fx"]
 
 [ext_resource type="FontFile" uid="uid://bapivjukjk0sp" path="res://assets/fonts/Mleitod Personal Use Only.ttf" id="1_tq1fi"]
 [ext_resource type="Script" path="res://scripts/night finished/NightFinished.cs" id="1_tqllm"]
 [ext_resource type="FontFile" uid="uid://2g1as66iwxo6" path="res://assets/fonts/VCR_OSD_MONO_1.001.ttf" id="2_1pj4x"]
 [ext_resource type="Script" path="res://scripts/start menu/IconButton.cs" id="3_6x306"]
+[ext_resource type="Script" path="res://scenes/DemoBanner.cs" id="3_n3sho"]
 [ext_resource type="Texture2D" uid="uid://ch8cbsl81w726" path="res://assets/images/selected_icon.png" id="4_ghspp"]
 [ext_resource type="Script" path="res://scripts/start menu/CursorTile.cs" id="5_5cq2m"]
 [ext_resource type="AudioStream" uid="uid://dvv2d6vcxtpoa" path="res://assets/audio/ceiling_tile_hang.wav" id="6_pymvl"]
@@ -29,7 +30,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_tqllm")
 PostProcessing = NodePath("MarginContainer/PostProcessing")
-Hour6 = NodePath("MarginContainer/VBoxContainer/6AM")
+Hour6 = NodePath("MarginContainer/VBoxContainer/VBoxContainer/6AM")
 Continue = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Continue")
 Quit = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Quit")
 MyCursorTile = NodePath("MarginContainer/CursorTile")
@@ -55,13 +56,27 @@ layout_mode = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="6AM" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="6AM" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_tq1fi")
 theme_override_font_sizes/font_size = 96
 text = "6 AM"
 horizontal_alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+script = ExtResource("3_n3sho")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1pj4x")
+theme_override_font_sizes/font_size = 24
+text = "Thanks  for playing the Exposed demo!"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -126,6 +141,7 @@ stream = ExtResource("11_qodae")
 [node name="NightFinishedSoundEffect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_7rc2i")
 
+[connection signal="ready" from="." to="." method="IncrementLevel"]
 [connection signal="mouse_entered" from="MarginContainer/VBoxContainer/HBoxContainer/Continue" to="MarginContainer/VBoxContainer/HBoxContainer/Continue" method="OnMouseEntered"]
 [connection signal="mouse_exited" from="MarginContainer/VBoxContainer/HBoxContainer/Continue" to="MarginContainer/VBoxContainer/HBoxContainer/Continue" method="OnMouseExited"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Continue" to="." method="OnContinuePressed"]

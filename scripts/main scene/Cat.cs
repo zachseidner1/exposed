@@ -26,6 +26,8 @@ public partial class Cat : Sprite2D
 
 	private Tween _tween;
 
+	private Tween _numMeowsTween;
+
 	[Export]
 	public Texture2D Jumping;
 	[Export]
@@ -35,6 +37,17 @@ public partial class Cat : Sprite2D
 
 	[Export]
 	public AudioStreamPlayer2D MeowPlayer;
+
+	[Export]
+	public AudioStream CatMeow;
+
+	[Export]
+	public AudioStream CatGrowl;
+
+	private int _numMeows;
+
+	[Export]
+	public Label MeowLabel;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -122,6 +135,7 @@ public partial class Cat : Sprite2D
 		_tween.Finished += () =>
 		{
 			Texture = Sitting;
+			CatStatus = CatState.Sitting;
 		};
 		_jumpTimer.Start(GetNextJumpTime());
 	}
@@ -144,11 +158,32 @@ public partial class Cat : Sprite2D
 	{
 		if (CatStatus == CatState.Jumping)
 		{
+			MeowPlayer.Stream = CatGrowl;
+			MeowPlayer.Play(0F);
 			Fall();
 		}
 		else if (CatStatus == CatState.Sitting)
 		{
+			_numMeows++;
+			MeowPlayer.Stream = CatMeow;
 			MeowPlayer.Play(3.19F);
+			Label MeowEffectLabel = (Label)MeowLabel.Duplicate();
+			AddChild(MeowEffectLabel);
+
+			MeowEffectLabel.Text = "+" + _numMeows + " meows!";
+			MeowEffectLabel.Visible = true;
+			MeowEffectLabel.Position = new Vector2(MeowLabel.Position.X, 0);
+
+			var numMeowsTween = GetTree().CreateTween();
+			numMeowsTween.SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Quad);
+			numMeowsTween.TweenProperty(MeowEffectLabel, "modulate", new Color(0, 0, 0, 0), 1.0);
+			numMeowsTween.Parallel().TweenProperty(MeowEffectLabel,
+			 "position",
+			 new Vector2(MeowEffectLabel.Position.X, MeowEffectLabel.Position.Y - 100),
+				1.0);
+
+			numMeowsTween.Finished += () => { MeowEffectLabel.QueueFree(); };
+
 		}
 	}
 

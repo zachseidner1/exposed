@@ -73,7 +73,6 @@ public partial class NightFinished : Control
 
 	private void OnContinuePressed()
 	{
-		Saving.WriteLevel(Saving.GetLevel() + 1);
 		OnRetryPressed();
 	}
 
@@ -95,5 +94,15 @@ public partial class NightFinished : Control
 		{
 			GetTree().ChangeSceneToFile("res://scenes/CeilingTileGame.tscn");
 		};
+	}
+
+	/// <summary>
+	/// We increment the level when getting to this screen, if this screen is the 
+	/// night finished screen. So I connect the ready() event to this method, but 
+	/// only in the night finished screen.
+	/// </summary>
+	private void IncrementLevel()
+	{
+		Saving.WriteLevel(Saving.GetLevel() + 1);
 	}
 }
