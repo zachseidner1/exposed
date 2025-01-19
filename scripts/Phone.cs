@@ -81,6 +81,7 @@ public partial class Phone : Sprite2D
 		{
 			return;
 		}
+		PhoneState = State.Answered;
 		_ringTimer.Stop();
 		PhoneAudio.Stop();
 		PhoneAudio.Stream = PhonePickup;
