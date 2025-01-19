@@ -28,7 +28,14 @@ public partial class NightFinished : Control
 	public override void _Ready()
 	{
 		EmptyScene();
-		NightFinishedSoundEffect.Play();
+		Timer timer = new() { OneShot = true };
+		AddChild(timer);
+		timer.Start(0.5);
+		timer.Timeout += () =>
+		{
+			NightFinishedSoundEffect.Play();
+		};
+		// NightFinishedSoundEffect.Play();
 		RepopulateScene();
 		Saving.WriteLevel(Saving.GetLevel() + 1);
 	}
