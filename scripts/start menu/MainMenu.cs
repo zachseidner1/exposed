@@ -34,4 +34,9 @@ public partial class MainMenu : MarginContainer
 			GetTree().ChangeSceneToFile("res://scenes/CeilingTileGame.tscn");
 		};
 	}
+
+	private void OnQuitPressed()
+	{
+		GetTree().Quit();
+	}
 }

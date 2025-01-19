@@ -62,7 +62,7 @@ alignment = 1
 layout_mode = 2
 alignment = 1
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("HoverSoundEffect")]
+[node name="New Game" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("HoverSoundEffect")]
 z_index = 2
 texture_filter = 1
 layout_mode = 2
@@ -72,6 +72,42 @@ theme_override_fonts/font = ExtResource("2_cpcph")
 theme_override_font_sizes/font_size = 36
 theme_override_styles/hover = SubResource("StyleBoxEmpty_rmub8")
 text = "New Game"
+script = ExtResource("4_meem4")
+HoverSoundEffect = NodePath("../../../../../HoverSoundEffect")
+IconTexture = ExtResource("3_xnb8d")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Continue" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2" node_paths=PackedStringArray("HoverSoundEffect")]
+z_index = 2
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("2_cpcph")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/hover = SubResource("StyleBoxEmpty_rmub8")
+text = "Continue"
+script = ExtResource("4_meem4")
+HoverSoundEffect = NodePath("../../../../../HoverSoundEffect")
+IconTexture = ExtResource("3_xnb8d")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3" node_paths=PackedStringArray("HoverSoundEffect")]
+z_index = 2
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("2_cpcph")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/hover = SubResource("StyleBoxEmpty_rmub8")
+text = "Quit"
 script = ExtResource("4_meem4")
 HoverSoundEffect = NodePath("../../../../../HoverSoundEffect")
 IconTexture = ExtResource("3_xnb8d")
@@ -112,6 +148,12 @@ script = ExtResource("13_v7p1t")
 [node name="HoverSoundEffect" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_dbbc2")
 
-[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Button" to="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Button" method="OnMouseEntered"]
-[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Button" to="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Button" method="OnMouseExited"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Button" to="." method="OnNewGamePressed"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/New Game" to="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/New Game" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/New Game" to="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/New Game" method="OnMouseExited"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/New Game" to="." method="OnNewGamePressed"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Continue" to="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Continue" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Continue" to="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Continue" method="OnMouseExited"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Continue" to="." method="OnNewGamePressed"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/Quit" to="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/Quit" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/Quit" to="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/Quit" method="OnMouseExited"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/Quit" to="." method="OnNewGamePressed"]

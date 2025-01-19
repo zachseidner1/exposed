@@ -16,8 +16,11 @@ public partial class IconButton : Button
 	}
 	private void OnMouseEntered()
 	{
-		Icon = IconTexture;
-		HoverSoundEffect.Play();
+		if (!Disabled)
+		{
+			Icon = IconTexture;
+			HoverSoundEffect.Play();
+		}
 	}
 
 	private void OnMouseExited()
