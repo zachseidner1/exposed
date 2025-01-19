@@ -49,7 +49,7 @@ public partial class GameManager : Node2D
 			case 1:
 				break;
 			case 2:
-				StartCeilingAtDifficulty(9);
+				StartCeilingAtDifficulty(1);
 				break;
 		}
 	}
@@ -101,7 +101,7 @@ public partial class GameManager : Node2D
 			hangTime = Random.Next(minHangTime, maxHangTime);
 		}
 
-		GD.Print("Chosen delay: " + Math.Clamp(hangTime, 0.05, 5));
+		GD.Print("Chosen delay: " + Math.Clamp(hangTime, 0.05, 5) + "from difficulty " + CeilingDifficulty);
 		return Math.Clamp(hangTime, 0.05, 5);
 	}
 
@@ -124,6 +124,17 @@ public partial class GameManager : Node2D
 		CeilingHangTimer.Start(GetNextHangDelay());
 	}
 
+	private void OnHour2Reached()
+	{
+		switch (Saving.GetLevel())
+		{
+			case 1:
+				break;
+			case 2:
+				CeilingDifficulty = 9;
+				break;
+		}
+	}
 	private void OnHour3Reached()
 	{
 		switch (Saving.GetLevel())
@@ -132,6 +143,9 @@ public partial class GameManager : Node2D
 				Eyes.HideUnderTile();
 				CeilingDifficulty = 1;
 				CeilingHangTimer.Start(GetNextHangDelay());
+				break;
+			case 2:
+				CeilingDifficulty = 10;
 				break;
 		}
 	}
@@ -153,6 +167,9 @@ public partial class GameManager : Node2D
 			case 1:
 				GD.Print("Upping ceiling difficulty to 9");
 				CeilingDifficulty = 9;
+				break;
+			case 2:
+				CeilingDifficulty = 12;
 				break;
 		}
 	}

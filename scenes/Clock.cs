@@ -14,7 +14,13 @@ public partial class Clock : Label
 	private int _prevHour = 0;
 
 	[Signal]
+	public delegate void Hour2EventHandler();
+	[Signal]
 	public delegate void Hour3EventHandler();
+	[Signal]
+	public delegate void Hour4EventHandler();
+	[Signal]
+	public delegate void Hour5EventHandler();
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -32,8 +38,17 @@ public partial class Clock : Label
 			Text = _prevHour + 1 + " AM";
 			switch (_prevHour + 1)
 			{
+				case 2:
+					EmitSignal(SignalName.Hour2);
+					break;
 				case 3:
 					EmitSignal(SignalName.Hour3);
+					break;
+				case 4:
+					EmitSignal(SignalName.Hour4);
+					break;
+				case 5:
+					EmitSignal(SignalName.Hour5);
 					break;
 				case 6:
 					Saving.WriteLevel(Saving.GetLevel() + 1);

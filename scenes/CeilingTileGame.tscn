@@ -284,7 +284,7 @@ theme_override_fonts/font = ExtResource("5_svxjy")
 theme_override_font_sizes/font_size = 48
 text = "6 AM"
 script = ExtResource("9_7lso6")
-SecondsPerNight = 10
+SecondsPerNight = 40
 
 [node name="PostProcessing" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_54bqy")
@@ -371,6 +371,9 @@ script = ExtResource("25_w2ock")
 
 [node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
 
+[connection signal="Hour2" from="CanvasLayer/Screen/MarginContainer/TimeLabel" to="." method="OnHour2Reached"]
 [connection signal="Hour3" from="CanvasLayer/Screen/MarginContainer/TimeLabel" to="." method="OnHour3Reached"]
 [connection signal="Hour3" from="CanvasLayer/Screen/MarginContainer/TimeLabel" to="Cat" method="OnHour3Reached"]
+[connection signal="Hour4" from="CanvasLayer/Screen/MarginContainer/TimeLabel" to="." method="OnHour4Reached"]
+[connection signal="Hour5" from="CanvasLayer/Screen/MarginContainer/TimeLabel" to="." method="OnHour5Reached"]
 [connection signal="PhoneCallFinished" from="Phone" to="." method="OnPhoneCallFinished"]
