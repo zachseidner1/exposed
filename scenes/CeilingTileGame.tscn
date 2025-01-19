@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dksyagnnu26fe"]
+[gd_scene load_steps=39 format=3 uid="uid://dksyagnnu26fe"]
 
 [ext_resource type="Script" path="res://scripts/main scene/GameManager.cs" id="1_6apfe"]
 [ext_resource type="Script" path="res://scripts/main scene/CeilingTile.cs" id="3_0ec5c"]
@@ -33,6 +33,9 @@
 [ext_resource type="Script" path="res://utils/LoopingAudio.cs" id="25_w2ock"]
 [ext_resource type="AudioStream" uid="uid://n8n4w0kldfsp" path="res://assets/audio/scare.mp3" id="26_10vn5"]
 [ext_resource type="AudioStream" uid="uid://da51ahglr0tl5" path="res://assets/audio/bat scare.wav" id="27_nol4a"]
+[ext_resource type="AudioStream" uid="uid://cwqich27rkdhy" path="res://assets/audio/crawling_through_vent.mp3" id="34_cs60o"]
+[ext_resource type="Script" path="res://scenes/SfxPlayer.cs" id="35_hwmed"]
+[ext_resource type="AudioStream" uid="uid://rfar8etrhvh8" path="res://assets/audio/metallic-clang-36258.mp3" id="36_dhxnk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o0ldg"]
 shader = ExtResource("4_4epfi")
@@ -370,6 +373,10 @@ autoplay = true
 script = ExtResource("25_w2ock")
 
 [node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("34_cs60o")
+script = ExtResource("35_hwmed")
+VentCrawl = ExtResource("34_cs60o")
+MetalClang = ExtResource("36_dhxnk")
 
 [connection signal="Hour2" from="CanvasLayer/Screen/MarginContainer/TimeLabel" to="." method="OnHour2Reached"]
 [connection signal="Hour3" from="CanvasLayer/Screen/MarginContainer/TimeLabel" to="." method="OnHour3Reached"]
