@@ -59,7 +59,7 @@ Bat = NodePath("Bat")
 Eyes = NodePath("Eyes")
 Cat = NodePath("Cat")
 Phone = NodePath("Phone")
-TimeLabel = NodePath("CanvasLayer/Screen/MarginContainer/TimeLabel")
+TimeLabel = NodePath("CanvasLayer/Screen/MarginContainer/Clock")
 CeilingHangTimer = NodePath("TileHangTimer")
 
 [node name="TileHangTimer" type="Timer" parent="."]
@@ -280,7 +280,7 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/margin_right = 8
 
-[node name="TimeLabel" type="Label" parent="CanvasLayer/Screen/MarginContainer"]
+[node name="Clock" type="Label" parent="CanvasLayer/Screen/MarginContainer"]
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_svxjy")
@@ -378,9 +378,9 @@ script = ExtResource("35_hwmed")
 VentCrawl = ExtResource("34_cs60o")
 MetalClang = ExtResource("36_dhxnk")
 
-[connection signal="Hour2" from="CanvasLayer/Screen/MarginContainer/TimeLabel" to="." method="OnHour2Reached"]
-[connection signal="Hour3" from="CanvasLayer/Screen/MarginContainer/TimeLabel" to="." method="OnHour3Reached"]
-[connection signal="Hour3" from="CanvasLayer/Screen/MarginContainer/TimeLabel" to="Cat" method="OnHour3Reached"]
-[connection signal="Hour4" from="CanvasLayer/Screen/MarginContainer/TimeLabel" to="." method="OnHour4Reached"]
-[connection signal="Hour5" from="CanvasLayer/Screen/MarginContainer/TimeLabel" to="." method="OnHour5Reached"]
+[connection signal="Hour2" from="CanvasLayer/Screen/MarginContainer/Clock" to="." method="OnHour2Reached"]
+[connection signal="Hour3" from="CanvasLayer/Screen/MarginContainer/Clock" to="." method="OnHour3Reached"]
+[connection signal="Hour3" from="CanvasLayer/Screen/MarginContainer/Clock" to="Cat" method="OnHour3Reached"]
+[connection signal="Hour4" from="CanvasLayer/Screen/MarginContainer/Clock" to="." method="OnHour4Reached"]
+[connection signal="Hour5" from="CanvasLayer/Screen/MarginContainer/Clock" to="." method="OnHour5Reached"]
 [connection signal="PhoneCallFinished" from="Phone" to="." method="OnPhoneCallFinished"]

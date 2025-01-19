@@ -27,7 +27,7 @@ public partial class SfxPlayer : AudioStreamPlayer
 
 			Stream = chosenSound == 1 ? VentCrawl : MetalClang;
 			float start = chosenSound == 1 ? 13.7F : 0F;
-			if (Random.Next(5) == 0)
+			if (Random.Next(12) == 0)
 			{
 				GD.Print("playing sound???");
 				Play(start);
