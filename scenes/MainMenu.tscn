@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dph62voqtusxq"]
+[gd_scene load_steps=21 format=3 uid="uid://dph62voqtusxq"]
 
 [ext_resource type="Script" path="res://scripts/start menu/MainMenu.cs" id="1_8ptep"]
 [ext_resource type="FontFile" uid="uid://bapivjukjk0sp" path="res://assets/fonts/Mleitod Personal Use Only.ttf" id="1_ugm3c"]
@@ -15,7 +15,15 @@
 [ext_resource type="AudioStream" uid="uid://dyxuklbtqsl8l" path="res://assets/audio/hover.wav" id="10_dbbc2"]
 [ext_resource type="Script" path="res://utils/LoopingAudio.cs" id="13_v7p1t"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3oo6i"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rmub8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5ir3r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7gbqa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dkygg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4d6ba"]
 shader = ExtResource("3_iedvi")
@@ -70,7 +78,9 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("2_cpcph")
 theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3oo6i")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_rmub8")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_5ir3r")
 text = "New Game"
 script = ExtResource("4_meem4")
 HoverSoundEffect = NodePath("../../../../../HoverSoundEffect")
@@ -88,7 +98,9 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("2_cpcph")
 theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7gbqa")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_rmub8")
+disabled = true
 text = "Continue"
 script = ExtResource("4_meem4")
 HoverSoundEffect = NodePath("../../../../../HoverSoundEffect")
@@ -106,6 +118,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("2_cpcph")
 theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_dkygg")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_rmub8")
 text = "Quit"
 script = ExtResource("4_meem4")
@@ -153,7 +166,7 @@ stream = ExtResource("10_dbbc2")
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/New Game" to="." method="OnNewGamePressed"]
 [connection signal="mouse_entered" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Continue" to="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Continue" method="OnMouseEntered"]
 [connection signal="mouse_exited" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Continue" to="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Continue" method="OnMouseExited"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Continue" to="." method="OnNewGamePressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Continue" to="." method="OnContinuePressed"]
 [connection signal="mouse_entered" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/Quit" to="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/Quit" method="OnMouseEntered"]
 [connection signal="mouse_exited" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/Quit" to="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/Quit" method="OnMouseExited"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/Quit" to="." method="OnNewGamePressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/Quit" to="." method="OnQuitPressed"]

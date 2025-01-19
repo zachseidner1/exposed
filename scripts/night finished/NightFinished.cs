@@ -30,6 +30,7 @@ public partial class NightFinished : Control
 		EmptyScene();
 		NightFinishedSoundEffect.Play();
 		RepopulateScene();
+		Saving.WriteLevel(Saving.GetLevel() + 1);
 	}
 	/// <summary>
 	/// Make all items in scene invisible, and remove post processing

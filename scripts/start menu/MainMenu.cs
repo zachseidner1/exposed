@@ -8,9 +8,16 @@ public partial class MainMenu : MarginContainer
 	public AudioStreamPlayer Bgm;
 	[Export]
 	public AudioStreamPlayer Sfx;
+
+	[Export]
+	public Button ContinueButton;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		if (Saving.GetLevel() != 1)
+		{
+			ContinueButton.Disabled = false;
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,7 +25,12 @@ public partial class MainMenu : MarginContainer
 	{
 	}
 
-	public void OnNewGamePressed()
+	private void OnNewGamePressed()
+	{
+		Saving.WriteLevel(1);
+		OnContinuePressed();
+	}
+	private void OnContinuePressed()
 	{
 		Sfx.Play();
 		Tween tween = GetTree().CreateTween();
