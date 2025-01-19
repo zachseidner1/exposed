@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dw85i0u2r21fx"]
+[gd_scene load_steps=21 format=3 uid="uid://dw85i0u2r21fx"]
 
 [ext_resource type="FontFile" uid="uid://bapivjukjk0sp" path="res://assets/fonts/Mleitod Personal Use Only.ttf" id="1_tq1fi"]
 [ext_resource type="Script" path="res://scripts/night finished/NightFinished.cs" id="1_tqllm"]
@@ -15,13 +15,21 @@
 [ext_resource type="AudioStream" uid="uid://1tsx777hxgq5" path="res://assets/audio/start_game.wav" id="11_qodae"]
 [ext_resource type="AudioStream" uid="uid://d0a0c1n2a200d" path="res://assets/audio/6am chimes.mp3" id="13_7rc2i"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_llr3h"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2e0dc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_felhv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fd1xx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fhyq2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e31v4"]
 shader = ExtResource("9_wf58a")
 shader_parameter/size = Vector2(32, 28)
 
-[node name="NightFinished" type="Control" node_paths=PackedStringArray("PostProcessing", "Hour6", "Continue", "Quit", "MyCursorTile", "OpeningSoundEffect", "NextLevelSoundEffect")]
+[node name="NightFinished" type="Control" node_paths=PackedStringArray("PostProcessing", "Hour6", "Continue", "Quit", "MyCursorTile", "OpeningSoundEffect", "NextLevelSoundEffect", "DemoBanner")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,6 +44,7 @@ Quit = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Quit")
 MyCursorTile = NodePath("MarginContainer/CursorTile")
 OpeningSoundEffect = NodePath("NightFinishedSoundEffect")
 NextLevelSoundEffect = NodePath("StartLevelSoundEffect")
+DemoBanner = NodePath("MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -90,7 +99,9 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("2_1pj4x")
 theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_llr3h")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_2e0dc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_felhv")
 text = "Continue"
 script = ExtResource("3_6x306")
 HoverSoundEffect = NodePath("../../../../HoverSoundEffect")
@@ -108,7 +119,9 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_fonts/font = ExtResource("2_1pj4x")
 theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fd1xx")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_2e0dc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_fhyq2")
 text = "Quit"
 script = ExtResource("3_6x306")
 HoverSoundEffect = NodePath("../../../../HoverSoundEffect")

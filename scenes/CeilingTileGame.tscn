@@ -284,7 +284,7 @@ theme_override_fonts/font = ExtResource("5_svxjy")
 theme_override_font_sizes/font_size = 48
 text = "6 AM"
 script = ExtResource("9_7lso6")
-SecondsPerNight = 40
+SecondsPerNight = 10
 
 [node name="PostProcessing" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_54bqy")

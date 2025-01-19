@@ -29,12 +29,13 @@
 shader = ExtResource("3_iedvi")
 shader_parameter/size = Vector2(32, 28)
 
-[node name="Main" type="MarginContainer" node_paths=PackedStringArray("Bgm", "Sfx")]
+[node name="Main" type="MarginContainer" node_paths=PackedStringArray("Bgm", "Sfx", "ContinueButton")]
 offset_right = 600.0
 offset_bottom = 600.0
 script = ExtResource("1_8ptep")
 Bgm = NodePath("BGM")
 Sfx = NodePath("StartLevelSoundEffect")
+ContinueButton = NodePath("MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Continue")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

@@ -14,6 +14,7 @@ public partial class MainMenu : MarginContainer
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		// TODO change logic when making full game
 		if (Saving.GetLevel() != 1)
 		{
 			ContinueButton.Disabled = false;
@@ -32,6 +33,11 @@ public partial class MainMenu : MarginContainer
 	}
 	private void OnContinuePressed()
 	{
+		// TODO remove when making full game
+		if (Saving.GetLevel() == 3)
+		{
+			Saving.WriteLevel(2);
+		}
 		Sfx.Play();
 		Tween tween = GetTree().CreateTween();
 		tween.TweenProperty(this, "modulate", new Color(1, 1, 1, 0), 3.0)

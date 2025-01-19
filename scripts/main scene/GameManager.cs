@@ -140,6 +140,7 @@ public partial class GameManager : Node2D
 		switch (Saving.GetLevel())
 		{
 			case 1:
+				GD.Print("Upping ceiling difficulty to 5");
 				CeilingDifficulty = 5;
 				break;
 		}
@@ -150,6 +151,7 @@ public partial class GameManager : Node2D
 		switch (Saving.GetLevel())
 		{
 			case 1:
+				GD.Print("Upping ceiling difficulty to 9");
 				CeilingDifficulty = 9;
 				break;
 		}

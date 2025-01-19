@@ -24,6 +24,9 @@ public partial class NightFinished : Control
 
 	[Export]
 	public AudioStreamPlayer NextLevelSoundEffect;
+
+	[Export]
+	public HBoxContainer DemoBanner;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -36,6 +39,10 @@ public partial class NightFinished : Control
 			OpeningSoundEffect.Play();
 		};
 		RepopulateScene();
+		if (Saving.GetLevel() == 3)
+		{
+			Continue.Disabled = true;
+		}
 	}
 	/// <summary>
 	/// Make all items in scene invisible, and remove post processing
@@ -63,6 +70,10 @@ public partial class NightFinished : Control
 			PostProcessing.Visible = true;
 			Quit.Visible = true;
 			MyCursorTile.Visible = true;
+			if (DemoBanner != null)
+			{
+				DemoBanner.Visible = true;
+			}
 		};
 	}
 
@@ -94,15 +105,5 @@ public partial class NightFinished : Control
 		{
 			GetTree().ChangeSceneToFile("res://scenes/CeilingTileGame.tscn");
 		};
-	}
-
-	/// <summary>
-	/// We increment the level when getting to this screen, if this screen is the 
-	/// night finished screen. So I connect the ready() event to this method, but 
-	/// only in the night finished screen.
-	/// </summary>
-	private void IncrementLevel()
-	{
-		Saving.WriteLevel(Saving.GetLevel() + 1);
 	}
 }

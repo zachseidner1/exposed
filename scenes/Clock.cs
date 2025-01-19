@@ -36,6 +36,7 @@ public partial class Clock : Label
 					EmitSignal(SignalName.Hour3);
 					break;
 				case 6:
+					Saving.WriteLevel(Saving.GetLevel() + 1);
 					GetTree().ChangeSceneToFile("res://scenes/night_finished.tscn");
 					break;
 			}
