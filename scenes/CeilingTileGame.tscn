@@ -365,7 +365,7 @@ ScareSoundEffect = ExtResource("26_10vn5")
 
 [node name="AmbientNoise" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("24_8ecaf")
-volume_db = -5.0
+volume_db = -3.0
 autoplay = true
 script = ExtResource("25_w2ock")
 
