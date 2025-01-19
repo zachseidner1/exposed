@@ -88,7 +88,7 @@ public partial class Phone : Sprite2D
 		PhoneAudio.Finished += () =>
 		{
 			PhoneAudio.Stream = Saving.GetLevel() == 2 ? Night2PhoneCall : Night1PhoneCall;
-			PhoneAudio.VolumeDb = 5;
+			PhoneAudio.VolumeDb = 8;
 			PhoneAudio.Play();
 			PhoneAudio.Finished += () =>
 			{
